@@ -2,6 +2,4 @@
 
 use Library\Route;
 
-Route::get('/', function(){
-    die('a');
-});
+Route::get('/', "Welcome::index");

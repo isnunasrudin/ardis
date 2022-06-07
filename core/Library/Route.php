@@ -4,7 +4,7 @@ namespace Library;
 
 class Route
 {
-    private static $routes = array();
+    protected static $routes = array();
 
     private static function _add($url, $method, $callback)
     {
