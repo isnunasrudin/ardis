@@ -27,7 +27,7 @@ class Aplikasi extends Route {
             {
                 $context = explode('@', $response);
                 $file = $context[0];
-                include_once(APP_DIR . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . "$file.php");
+                include_once(APP_DIR . DIRECTORY_SEPARATOR . "controllers" . DIRECTORY_SEPARATOR . "$file.php");
                 
                 $class = "Controller\\" . $context[0];
                 echo call_user_func([new $class(), $context[1]], new Request());
