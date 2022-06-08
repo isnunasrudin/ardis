@@ -2,4 +2,4 @@
 
 use Library\Route;
 
-Route::get('/', "Welcome::index");
+Route::get('/', "Welcome@index");

@@ -25,17 +25,21 @@ class Aplikasi extends Route {
             if(is_callable($response)) echo $response();
             else
             {
-                try {
-                    $file = explode('::', $response)[0];
-                    include_once(APP_DIR . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . "$file.php");
-                    echo call_user_func("Controller\\$response", new Request());
-                } catch (\Throwable $th) {
-                    throw new Exception("Kontroller/method tidak ditemukan!");
-                }
+                $context = explode('@', $response);
+                $file = $context[0];
+                include_once(APP_DIR . DIRECTORY_SEPARATOR . "controller" . DIRECTORY_SEPARATOR . "$file.php");
+                
+                $class = "Controller\\" . $context[0];
+                echo call_user_func([new $class(), $context[1]], new Request());
             }
         }
         else
         {
+            $_SESSION['url']['current'] = $_SESSION['url']['before'] = [
+                'link' => '/',
+                'params' => array()
+            ];
+            http_response_code(404);
             die('Halaman Tidak Ditemukan');
         }
     }

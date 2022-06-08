@@ -2,6 +2,7 @@
 
 return [
 
-    'base_url' => 'http://kuliah.local.com/uas/'
+    //Tambahkan slash dibelakang (Jika Directory)
+    'base_url' => 'http://kuliah.local.com/public/'
 
 ];

@@ -6,17 +6,26 @@ use Exception;
 
 class View
 {
-    public static function render($name, array $params)
+    public static function render($file, array $params, $title = 'Tidak Ditemukan')
     {
-        $name .= '.php';
-        if(!file_exists(VIEW_DIR . $name)) throw new Exception("Berkas view <b>$name</b> tidak ditemukan");
+        $file .= '.php';
+        if(!file_exists(VIEW_DIR . $file)) throw new Exception("Berkas view <b>$file</b> tidak ditemukan");
 
         //Render View
         ob_start();
-        (function() use($name, $params){
-            extract($params);
-            include_once(VIEW_DIR . $name);
+        (function() use($file, $params){
+            $params;
+            include_once(VIEW_DIR . $file);
         })();
-        return ob_get_flush(); 
+        $content = ob_get_clean();
+
+        //Template
+        ob_start();
+        (function() use($title, $content){
+            [$title, $content];
+            include_once(VIEW_DIR . "_template.php");
+        })();
+        return ob_get_clean();
+        
     }
 }

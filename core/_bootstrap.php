@@ -18,6 +18,7 @@ foreach($modules as $module) try {
 } catch (\Throwable $th) {
     die("Tidak dapat memuat <b>$module</b>");
 }
+require_once(CORE_DIR . '_helper.php');
 
 //Load Router
 require_once(APP_DIR . 'router.php');
