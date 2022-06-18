@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="<?= asset('style.css') ?>">
 </head>
 <body>
-
     <?= $content ?>
 </body>
 </html>

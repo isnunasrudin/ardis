@@ -2,6 +2,7 @@
 
 use Library\Request;
 use Library\Route;
+use Library\Storage;
 use Library\URL;
 
 class Aplikasi extends Route {
@@ -10,6 +11,9 @@ class Aplikasi extends Route {
     {
         //Navigator
         $this->navigate();
+
+        //DB Migration
+        $this->dbMigrate();
 
         //Is csrf_valid?
         $csrf_valid = $this->validate();
@@ -41,6 +45,23 @@ class Aplikasi extends Route {
             ];
             http_response_code(404);
             die('Halaman Tidak Ditemukan');
+        }
+    }
+
+    private function dbMigrate()
+    {
+        if(!Storage::disk('system')->has('HAS_MIGRATE'))
+        {
+            $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
+            foreach($migrates as $file)
+            {
+                require_once(MIGRATION_DIR . $file);
+                $name = preg_replace("/^(\d*_)(.*)(\.php)/", "$2", $file);
+                $name = "Migrations\\" . $name;
+                $migrate = new $name();
+                $migrate->execute();
+            }
+            Storage::disk('system')->put('HAS_MIGRATE', time());
         }
     }
 
