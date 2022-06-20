@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['startime'] = microtime(true);
+$GLOBALS['startime'] = microtime(false);
 
 require_once(
     __DIR__ . DIRECTORY_SEPARATOR .
