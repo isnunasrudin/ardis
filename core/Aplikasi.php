@@ -3,6 +3,7 @@
 use Library\Request;
 use Library\Route;
 use Library\Storage;
+use Library\Stringable;
 use Library\URL;
 
 class Aplikasi extends Route {
@@ -55,11 +56,9 @@ class Aplikasi extends Route {
             $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
             foreach($migrates as $file)
             {
-                require_once(MIGRATION_DIR . $file);
                 $name = preg_replace("/^(\d*_)(.*)(\.php)/", "$2", $file);
-                $name = "Migrations\\" . $name;
-                $migrate = new $name();
-                $migrate->execute();
+                $migrate = require_once(MIGRATION_DIR . $file);
+                $migrate->execute($name);
             }
             Storage::disk('system')->put('HAS_MIGRATE', time());
         }

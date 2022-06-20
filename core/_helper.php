@@ -50,3 +50,18 @@ if(!function_exists('asset'))
         return URL::asset_url($file);
     }
 }
+
+if(!function_exists('dd'))
+{
+    function dd(...$vars)
+    {
+        ob_flush();
+        echo "<pre>";
+        foreach($vars as $var)
+        {
+            var_dump($var);
+            echo "<br />";
+        }
+        echo "</pre>";
+    }
+}

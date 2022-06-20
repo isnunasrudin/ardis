@@ -9,6 +9,7 @@ define('MIGRATION_DIR', ROOT_DIR . 'migrations' . DIRECTORY_SEPARATOR);
 define('STORAGE_DIR', ROOT_DIR . 'storage' . DIRECTORY_SEPARATOR);
 
 //Init PHP System
+session_name("YEN_NING_TAWANG_ONO_LINTANG");
 session_start();
 // error_reporting(0);
 

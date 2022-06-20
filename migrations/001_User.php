@@ -4,12 +4,14 @@ namespace Migrations;
 
 use Library\Migration;
 
-class User extends Migration {
+return new class extends Migration {
 
     public function run()
     {
         $this->string('id', 64)->primary();
-        $this->string('no_hp');
+        $this->string('name');
+        $this->timestamp('created_at');
+        $this->timestamp('deleted_at')->nullable();
     }
 
-}
+};

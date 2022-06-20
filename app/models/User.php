@@ -4,7 +4,8 @@ namespace Models;
 
 use Library\DB;
 
-class Percobaan extends DB
-{
+class User extends DB {
+
     
+
 }
