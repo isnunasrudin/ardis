@@ -6,8 +6,9 @@ use Exception;
 
 class View
 {
-    public static function render($file, array $params, $title = 'Tidak Ditemukan')
+    public static function render($file, array $params, $title = null)
     {
+        if($title === null) $title = 'Tidak Ditemukan';
         $file .= '.php';
         if(!file_exists(VIEW_DIR . $file)) throw new Exception("Berkas view <b>$file</b> tidak ditemukan");
 

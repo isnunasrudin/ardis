@@ -6,8 +6,8 @@ use Library\View;
 
 if(!function_exists('view'))
 {
-    function view($name, $params = array()){
-        return View::render($name, $params);
+    function view($name, $params = array(), $title = null){
+        return View::render($name, $params, $title);
     }
 }
 

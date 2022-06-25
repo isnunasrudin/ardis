@@ -13,7 +13,7 @@ class DB {
     private $db_where = array();
     private $db_binding = array();
 
-    public function __construct($table = null)
+    public function __construct(string $table = "")
     {
         $this->table = Stringable::to_snake_case($table);
     }

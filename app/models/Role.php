@@ -6,6 +6,4 @@ use Library\DB;
 
 class Role extends DB {
 
-    
-
 }
