@@ -46,8 +46,8 @@
         </div>
     </nav>
 
-    <div class="container d-flex">
-        <div class="my-auto text-center">
+    <div class="container d-flex justify-content-center">
+        <div class="my-auto">
             <?= $content ?>
         </div>
     </div>
