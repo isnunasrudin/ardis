@@ -15,6 +15,7 @@ class View
         ob_start();
         (function() use($file, $params){
             $params;
+            extract($params);
             include_once(VIEW_DIR . $file);
         })();
         $content = ob_get_clean();
