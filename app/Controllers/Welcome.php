@@ -3,13 +3,13 @@
 namespace Controllers;
 
 use Library\Request;
-use Models\Role;
+use Models\User;
 
 class Welcome
 {
     public function index(Request $request)
     {
-        Role::where('a', 'b');
+        dd(load_time());
         return view('welcome');
     }
 }
