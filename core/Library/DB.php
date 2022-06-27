@@ -1,11 +1,13 @@
 <?php
 
-namespace Library;
+namespace Libraries;
 
+use Exception;
 use mysqli;
-use Models;
 
 class DB {
+
+    use Relation;
 
     private static $conn = null;
 
@@ -13,9 +15,14 @@ class DB {
     private $db_where = array();
     private $db_binding = array();
 
-    public function __construct(string $table = "")
+    public function __construct(string $class = "")
     {
-        $this->table = Stringable::to_snake_case($table);
+        $this->table = Stringable::classToTable($class);
+    }
+
+    public function _getTable(): string
+    {
+        return $this->table;
     }
 
     public static function _getConn() : mysqli
@@ -23,6 +30,16 @@ class DB {
         if(self::$conn === null) self::$conn = new mysqli(config('db_host'), config('db_user'), config('db_pass'), config('db_name'));
 
         return self::$conn;
+    }
+
+    public static function begin() : void
+    {
+        self::_getConn()->begin_transaction();
+    }
+
+    public static function commit() : void
+    {
+        self::_getConn()->commit();
     }
 
     public function _where($column, $value)
@@ -47,7 +64,7 @@ class DB {
         return 's';
     }
 
-    public function _get() : object | false
+    public function _get()
     {
         $stmt = $this->_getConn()->prepare("SELECT * FROM $this->table " . $this->_whereBuilder());
         for($i=0; $i < count($this->db_binding); $i++)
@@ -56,7 +73,9 @@ class DB {
         }
 
         $stmt->execute();
-        return $stmt->get_result()->fetch_field();
+        $result = $stmt->get_result();
+
+        return Collection::mysqlresultToObject($result, get_called_class());
     }
 
     public function _count()
@@ -78,31 +97,44 @@ class DB {
 
     public function _first()
     {
-        return $this->_get()[0];
+        $stmt = $this->_getConn()->prepare("SELECT * FROM $this->table " . $this->_whereBuilder());
+        for($i=0; $i < count($this->db_binding); $i++)
+        {
+            $stmt->bind_param($this->db_binding[$i][0], $this->db_binding[$i][1]);
+        }
+
+        $stmt->execute();
+        return $stmt->get_result()->fetch_object(get_called_class());
     }
 
     public static function __callStatic($name, $arguments)
     {
         $that = get_called_class();
         $that = new $that($that);
-        
-        foreach(array_diff(get_class_methods($that), get_class_methods(new DB())) as $method){
-            $that->{$method} = call_user_func([$that, $method]);  
-        }
 
         return call_user_func_array([$that, "_$name"], $arguments);
     }
 
-    // RELATION
-
-    public function hasMany($another_table, $relation_key = null, $local_key = null)
+    public function __call($name, $arguments)
     {
-        return $this->_get();
+        return call_user_func_array([$this, "_$name"], $arguments);
     }
 
-    public function belongsTo($another_table, $relation_key = null, $local_key = null)
+    public function __get($name)
     {
-        return $this->_get();
+        if(method_exists($this, $name))
+        {
+            $result = call_user_func([$this, $name]);
+            if($result instanceof DB)
+            {
+                $operation = $result->operation ?? '_get';
+                return $result->$operation();
+            }
+
+            return $result;
+        }
+
+        throw new Exception("Atribut tidak ditemukan");
     }
 
 }

@@ -6,8 +6,8 @@ use Library\View;
 
 if(!function_exists('view'))
 {
-    function view($name, $params = array(), $title = null){
-        return View::render($name, $params, $title);
+    function view(...$params){
+        return View::render(...$params);
     }
 }
 
@@ -51,9 +51,9 @@ if(!function_exists('asset'))
     }
 }
 
-if(!function_exists('dd'))
+if(!function_exists('dump'))
 {
-    function dd(...$vars)
+    function dump(...$vars)
     {
         ob_flush();
         echo "<pre>";
@@ -63,5 +63,14 @@ if(!function_exists('dd'))
             echo "<br />";
         }
         echo "</pre>";
+    }
+}
+
+if(!function_exists('dd'))
+{
+    function dd(...$vars)
+    {
+        dump(...$vars);
+        exit;
     }
 }

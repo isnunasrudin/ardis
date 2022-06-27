@@ -1,9 +1,9 @@
 <?php
 
+use Library\DB;
 use Library\Request;
 use Library\Route;
 use Library\Storage;
-use Library\Stringable;
 use Library\URL;
 
 class Aplikasi extends Route {
@@ -53,14 +53,19 @@ class Aplikasi extends Route {
     {
         if(!Storage::disk('system')->has('HAS_MIGRATE'))
         {
-            $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
-            foreach($migrates as $file)
-            {
-                $name = preg_replace("/^(\d*_)(.*)(\.php)/", "$2", $file);
-                $migrate = require_once(MIGRATION_DIR . $file);
-                $migrate->execute($name);
+            try {
+                DB::_getConn()->begin_transaction();
+                $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
+                foreach($migrates as $file)
+                {
+                    $name = preg_replace("/^(\d*_)(.*)(\.php)/", "$2", $file);
+                    $migrate = require_once(MIGRATION_DIR . $file);
+                    $migrate->execute($name);
+                }
+            } catch (Exception $th) {
+                DB::_getConn()->commit();
+                throw new Exception($th->getMessage());
             }
-            Storage::disk('system')->put('HAS_MIGRATE', time());
         }
     }
 

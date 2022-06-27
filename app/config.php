@@ -3,7 +3,7 @@
 return [
 
     // Tambahkan slash dibelakang (Jika Directory)
-    'base_url'      => 'http://kuliah.local.com/public/',
+    'base_url'      => 'http://ardis.local.com/',
 
     // Konfigurasi Database
     'db_host'       => 'localhost',

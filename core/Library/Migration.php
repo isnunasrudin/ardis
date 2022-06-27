@@ -58,7 +58,7 @@ abstract class Migration
 
     public function nullable()
     {
-        $this->column[$this->_lastKey()] = str_replace(" NOT NULL", "", $this->column[$this->_lastKey()]);
+        $this->column[$this->_lastKey()] = str_replace(" NOT NULL", " NULL", $this->column[$this->_lastKey()]);
         return $this;
     }
 

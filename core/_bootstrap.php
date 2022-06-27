@@ -11,27 +11,26 @@ define('STORAGE_DIR', ROOT_DIR . 'storage' . DIRECTORY_SEPARATOR);
 //Init PHP System
 session_name("YEN_NING_TAWANG_ONO_LINTANG");
 session_start();
-// error_reporting(0);
 
-//Load All Module
-$modules = array_diff(scandir(CORE_DIR . "Library"), ['.', '..']);
-foreach($modules as $module) try {
-    require_once(CORE_DIR . "Library" . DIRECTORY_SEPARATOR . $module);
-} catch (\Throwable $th) {
-    die("Tidak dapat memuat <b>$module</b>");
+// === Autoloader ===
+
+//Module
+spl_autoload_register(function($class){
+    $path = CORE_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+    if(file_exists($path))  require $path;
+});
+
+//Models
+spl_autoload_register(function($class){
+    $path = APP_DIR . 'models' . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+    if(file_exists($path)) require $path;
+});
+
+spl_autoload_register(function($class)){
+    if($class == "Aplikasi") require 
 }
+
 require_once(CORE_DIR . '_helper.php');
-
-//Load Models
-$models = array_diff(scandir(APP_DIR . "models"), ['.', '..']);
-foreach($models as $model) try {
-    require_once(APP_DIR . "models" . DIRECTORY_SEPARATOR . $model);
-} catch (\Throwable $th) {
-    die("Tidak dapat membuat <b>$model</b>");
-}
-
-//Load Router
 require_once(APP_DIR . 'router.php');
 
-//Load Apps
-require_once(CORE_DIR . 'Aplikasi.php');
+require_once(CORE_DIR . '');

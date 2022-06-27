@@ -14,4 +14,9 @@ class Stringable {
         return ltrim(preg_replace_callback("/[A-Z]/", fn($matches) => '_' . strtolower($matches[0]), $string), "_");
     }
 
+    public static function classToTable($string)
+    {
+        return self::to_snake_case(preg_replace('/(.*\\\)(\w*)$/', "$2", $string));
+    }
+
 }
