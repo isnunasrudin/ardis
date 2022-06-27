@@ -2,7 +2,7 @@
 
 namespace Migrations;
 
-use Library\Migration;
+use Libraries\Database\Migration;
 
 return new class extends Migration {
 
@@ -12,8 +12,9 @@ return new class extends Migration {
         $this->string('name');
         $this->string('email')->unique();
         $this->integer('role_id')->foreign('role');
-        $this->timestamp('created_at');
-        $this->timestamp('deleted_at')->nullable();
+        $this->timestamps(
+            withDeletedAt: true
+        );
     }
 
 };

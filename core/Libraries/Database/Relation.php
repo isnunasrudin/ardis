@@ -1,6 +1,8 @@
 <?php
 
-namespace Library;
+namespace Libraries\Database;
+
+use Libraries\Stringable;
 
 trait Relation {
 

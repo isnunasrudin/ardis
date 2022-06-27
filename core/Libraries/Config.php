@@ -2,6 +2,8 @@
 
 namespace Libraries;
 
+use Libraries\Storage;
+
 class Config
 {
     private static $instance = null;

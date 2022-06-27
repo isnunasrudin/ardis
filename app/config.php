@@ -1,14 +1,12 @@
 <?php
 
 return [
+    
+    'base_url'      => env('BASE_URL', 'http://localhost/uas/public/'),
 
-    // Tambahkan slash dibelakang (Jika Directory)
-    'base_url'      => 'http://ardis.local.com/',
-
-    // Konfigurasi Database
-    'db_host'       => 'localhost',
-    'db_user'       => 'root',
-    'db_password'   => '',
-    'db_name'       => 'kuliah'
+    'db_host'       => env('DB_HOST', 'localhost'),
+    'db_user'       => env('DB_USER', 'root'),
+    'db_password'   => env('DB_PASS', ''),
+    'db_name'       => env('DB_NAME', 'kuliah')
 
 ];

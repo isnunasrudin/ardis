@@ -1,13 +1,23 @@
 <?php
 
-use Library\Config;
-use Library\URL;
-use Library\View;
+use Libraries\Config;
+use Libraries\DotEnv;
+use Libraries\Response;
+use Libraries\URL;
+use Libraries\View;
 
 if(!function_exists('view'))
 {
     function view(...$params){
         return View::render(...$params);
+    }
+}
+
+if(!function_exists('response'))
+{
+    function response()
+    {
+        return new Response;
     }
 }
 
@@ -48,6 +58,14 @@ if(!function_exists('asset'))
     function asset($file)
     {
         return URL::asset_url($file);
+    }
+}
+
+if(!function_exists('env'))
+{
+    function env($key, $default = null)
+    {
+        return DotEnv::get($key, $default);
     }
 }
 

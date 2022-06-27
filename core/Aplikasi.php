@@ -1,15 +1,20 @@
 <?php
 
-use Library\DB;
-use Library\Request;
-use Library\Route;
-use Library\Storage;
-use Library\URL;
+use Libraries\Database\DB;
+use Libraries\DotEnv;
+use Libraries\Request;
+use Libraries\Response;
+use Libraries\Route;
+use Libraries\Storage;
+use Libraries\URL;
 
 class Aplikasi extends Route {
 
     public function run()
     {
+        //DotEnv Setup
+        DotEnv::init();
+
         //Navigator
         $this->navigate();
 
@@ -31,11 +36,21 @@ class Aplikasi extends Route {
             else
             {
                 $context = explode('@', $response);
-                $file = $context[0];
-                include_once(APP_DIR . DIRECTORY_SEPARATOR . "controllers" . DIRECTORY_SEPARATOR . "$file.php");
-                
                 $class = "Controllers\\" . $context[0];
-                echo call_user_func([new $class(), $context[1]], new Request());
+                
+                $result = call_user_func([new $class(), $context[1]], new Request());
+                if($result instanceof Response)
+                {
+                    ob_clean();
+
+                    foreach($result->getHeaders() as $k => $v) header("$k: $v");
+                    http_response_code($result->getHttpCode());
+                    echo $result->getBody();
+                }
+                else
+                {
+                    echo $result;
+                }
             }
         }
         else
@@ -54,7 +69,7 @@ class Aplikasi extends Route {
         if(!Storage::disk('system')->has('HAS_MIGRATE'))
         {
             try {
-                DB::_getConn()->begin_transaction();
+                DB::begin();
                 $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
                 foreach($migrates as $file)
                 {
@@ -62,8 +77,10 @@ class Aplikasi extends Route {
                     $migrate = require_once(MIGRATION_DIR . $file);
                     $migrate->execute($name);
                 }
+                Storage::disk('system')->put('HAS_MIGRATE', time());
+                DB::commit();
             } catch (Exception $th) {
-                DB::_getConn()->commit();
+                DB::rollback();
                 throw new Exception($th->getMessage());
             }
         }

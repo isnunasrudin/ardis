@@ -1,13 +1,13 @@
 <?php
 
-namespace Libraries;
+namespace Libraries\Database;
 
 use Exception;
 use mysqli;
+use Libraries\Stringable;
+use Libraries\Collection;
 
 class DB {
-
-    use Relation;
 
     private static $conn = null;
 
@@ -27,7 +27,7 @@ class DB {
 
     public static function _getConn() : mysqli
     {
-        if(self::$conn === null) self::$conn = new mysqli(config('db_host'), config('db_user'), config('db_pass'), config('db_name'));
+        if(self::$conn === null) self::$conn = new mysqli(config('db_host'), config('db_user'), config('db_password'), config('db_name'));
 
         return self::$conn;
     }
@@ -42,6 +42,11 @@ class DB {
         self::_getConn()->commit();
     }
 
+    public static function rollback() : void
+    {
+        self::_getConn()->rollback();
+    }
+
     public function _where($column, $value)
     {
         $this->db_where[$column] = $value;
@@ -51,31 +56,50 @@ class DB {
     private function _whereBuilder() : string
     {
         return count($this->db_binding) > 0 ? "WHERE " . implode(",", array_map(function($key, $val){
-            $db_binding[] = [$this->_($val), $val];
+            $this->db_binding[] = $val;
             return "$key = ?";
         }, array_keys($this->db_where), array_values($this->db_where))) : '';
-    }
-
-    private function _($val) : string
-    {
-        if(is_double($val)) return 'd';
-        if(is_numeric($val)) return 'i';
-        
-        return 's';
     }
 
     public function _get()
     {
         $stmt = $this->_getConn()->prepare("SELECT * FROM $this->table " . $this->_whereBuilder());
-        for($i=0; $i < count($this->db_binding); $i++)
-        {
-            $stmt->bind_param($this->db_binding[$i][0], $this->db_binding[$i][1]);
-        }
 
-        $stmt->execute();
+        $stmt->execute($this->db_binding);
         $result = $stmt->get_result();
 
         return Collection::mysqlresultToObject($result, get_called_class());
+    }
+
+    public function _insert(array $data)
+    {
+        if($this->uuidPrimaryKey)
+        {
+            $data = array_merge($data, [$this->primaryKey => Stringable::uuid()]);
+        }
+
+        $now = date('Y-m-d H:i:s');
+
+        if($this->timestamps)
+        {
+            $data = array_merge($data, [
+                'created_at' => $now,
+                'updated_at' => $now
+            ]);
+        }
+
+        $columns = implode(',', array_keys($data));
+
+        $values = array_values($data);
+        $values_ = substr(str_repeat('?,', count($values)), 0, -1);
+
+        $sql = ("INSERT INTO $this->table ($columns) VALUES ($values_)");
+
+        $stmt = $this->_getConn()->prepare($sql);
+
+        $stmt->execute($values);
+
+        dd($this->_getConn()->insert_id);
     }
 
     public function _count()

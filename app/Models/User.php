@@ -2,9 +2,14 @@
 
 namespace Models;
 
-use Library\DB;
+use Libraries\Database\Model;
+use Libraries\Database\SoftDelete;
 
-class User extends DB {
+class User extends Model {
+
+    use SoftDelete;
+
+    public $uuidPrimaryKey = true;
 
     public function role()
     {

@@ -1,5 +1,5 @@
 <?php
 
-use Library\Route;
+use Libraries\Route;
 
 Route::get('/', "Welcome@index");

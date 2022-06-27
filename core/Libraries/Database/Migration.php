@@ -1,6 +1,6 @@
 <?php
 
-namespace Library;
+namespace Libraries\Database;
 
 abstract class Migration
 {
@@ -68,6 +68,12 @@ abstract class Migration
         return $this;
     }
 
+    public function autoIncrement()
+    {
+        $this->column[$this->_lastKey()] .= " AUTO_INCREMENT";
+        return $this;
+    }
+
     // KUNCI
 
     public function primary()
@@ -88,5 +94,15 @@ abstract class Migration
     {
         $this->indexs[] = count($columns) > 0 ? $columns : [$this->_lastColumn()];
         return $this;
+    }
+
+    // CUSTOM COLUMN
+
+    public function timestamps($withDeletedAt = false)
+    {
+        $this->timestamp('created_at')->nullable();
+        $this->timestamp('updated_at')->nullable();
+        
+        if( $withDeletedAt ) $this->timestamp('deleted_at')->nullable();
     }
 }

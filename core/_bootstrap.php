@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 //App Const Variable
 define('ROOT_DIR', preg_replace("/(core(\\|\/)?)$/", '', __DIR__));
 define('CORE_DIR', ROOT_DIR . 'core' . DIRECTORY_SEPARATOR);
@@ -16,21 +18,32 @@ session_start();
 
 //Module
 spl_autoload_register(function($class){
-    $path = CORE_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
-    if(file_exists($path))  require $path;
+    if(preg_match('/^Libraries\\\/', $class))
+    {
+        $path = CORE_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+        if(file_exists($path)) require $path;
+    }
 });
 
 //Models
 spl_autoload_register(function($class){
-    $path = APP_DIR . 'models' . DIRECTORY_SEPARATOR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
-    if(file_exists($path)) require $path;
+    if(preg_match('/^Models\\\/', $class))
+    {
+        $path = APP_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+        if(file_exists($path)) require $path;
+    }
 });
 
-spl_autoload_register(function($class)){
-    if($class == "Aplikasi") require 
-}
+//Controllers
+spl_autoload_register(function($class){
+    if(preg_match('/^Controllers\\\/', $class))
+    {
+        $path = APP_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+        if(file_exists($path)) require $path;
+    }
+});
 
 require_once(CORE_DIR . '_helper.php');
 require_once(APP_DIR . 'router.php');
 
-require_once(CORE_DIR . '');
+require_once(CORE_DIR . 'Aplikasi.php');

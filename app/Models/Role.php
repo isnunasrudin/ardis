@@ -2,9 +2,11 @@
 
 namespace Models;
 
-use Library\DB;
+use Libraries\Database\Model;
 
-class Role extends DB {
+class Role extends Model {
+
+    public $timestamps = false;
 
     public function users()
     {

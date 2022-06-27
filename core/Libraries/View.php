@@ -1,6 +1,6 @@
 <?php
 
-namespace Library;
+namespace Libraries;
 
 use Exception;
 
