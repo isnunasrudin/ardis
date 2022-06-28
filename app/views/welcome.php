@@ -6,7 +6,7 @@
                 <div class="col">
                     <input type="email" class="form-control" id="nisn-search" placeholder="Masukkan NISN (Nomor Induk Siswa Nasional)">
                 </div>
-                <div class="col-auto">
+                <div class="col-md-auto">
                     <button class="btn btn-primary px-5">CARI!</button>
                 </div>
             </div>
