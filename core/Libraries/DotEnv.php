@@ -9,8 +9,6 @@ class DotEnv
 
     public function __construct()
     {
-        self::init();
-
         $env = Storage::root()->get('.env');
         foreach(explode(PHP_EOL, $env) as $val)
         {
@@ -33,27 +31,6 @@ class DotEnv
     public function _all() : array
     {
         return $this->envs;
-    }
-
-    public static function init()
-    {
-        if(!Storage::root()->has('.env')) 
-        {
-            $default_value = <<<EOD
-            APP_ENV = "development"
-
-            # Tambahkan slash dibelakang (Jika Directory)
-            BASE_URL = "http://localhost/uas/public/"
-            
-            # Konfigurasi Database
-            DB_HOST = "localhost"
-            DB_USER = "root"
-            DB_PASS = ""
-            DB_NAME = "kuliah"
-            EOD;
-
-            Storage::root()->put('.env', $default_value);
-        }
     }
 
     public static function __callStatic($name, $arguments)

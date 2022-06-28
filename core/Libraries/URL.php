@@ -40,5 +40,10 @@ class URL
 
         header(self::base_url() .'?'. http_build_query([$_SESSION['csrf_key'] => $_SESSION['csrf_val']]));
     }
+
+    public static function make($url_name)
+    {
+        return $_SESSION['id'] . "=" . sha1($url_name);
+    }
     
 }

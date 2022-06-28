@@ -3,16 +3,26 @@
 namespace Controllers;
 
 use Libraries\Request;
-use Models\User;
-use PDO;
 
 class Welcome
 {
     public function index(Request $request)
     {
-        User::get()->each(function(User $data){
-            echo "$data->id<br>";
-        });
-        echo load_time();
+        return view('welcome');
+    }
+
+    public function nurul(Request $request)
+    {
+        return view('nurul');
+    }
+
+    public function elly(Request $request)
+    {
+        return view('fyea');
+    }
+
+    public function zhen(Request $request)
+    {
+        return view('zhendi');
     }
 }

@@ -1,29 +1,22 @@
 <?php
 
-use Libraries\Database\DB;
-use Libraries\DotEnv;
 use Libraries\Request;
 use Libraries\Response;
 use Libraries\Route;
-use Libraries\Storage;
 use Libraries\URL;
 
 class Aplikasi extends Route {
 
     public function run()
     {
-        //DotEnv Setup
-        DotEnv::init();
+        //Init PHP System
+        session_name("YEN_NING_TAWANG_ONO_LINTANG");
+        session_start();
 
         //Navigator
         $this->navigate();
 
-        //DB Migration
-        $this->dbMigrate();
-
-        //Is csrf_valid?
-        $csrf_valid = $this->validate();
-        Request::$csrf_valid = $csrf_valid;
+        $this->validate();
 
         //Check is isset the routes
         $method = Request::method();
@@ -31,6 +24,7 @@ class Aplikasi extends Route {
 
         if(isset(Route::$routes[$method][$current_url]))
         {
+            Route::_setCurrent($current_url);
             $response = Route::$routes[$method][$current_url];
             if(is_callable($response)) echo $response();
             else
@@ -56,7 +50,7 @@ class Aplikasi extends Route {
         else
         {
             $_SESSION['url']['current'] = $_SESSION['url']['before'] = [
-                'link' => '/',
+                'link' => sha1('/'),
                 'params' => array()
             ];
             http_response_code(404);
@@ -64,48 +58,13 @@ class Aplikasi extends Route {
         }
     }
 
-    private function dbMigrate()
+    private function validate()
     {
-        if(!Storage::disk('system')->has('HAS_MIGRATE'))
+        if(!isset($_SESSION['id']))
         {
-            try {
-                DB::begin();
-                $migrates = array_diff(scandir(MIGRATION_DIR), ['.', '..']);
-                foreach($migrates as $file)
-                {
-                    $name = preg_replace("/^(\d*_)(.*)(\.php)/", "$2", $file);
-                    $migrate = require_once(MIGRATION_DIR . $file);
-                    $migrate->execute($name);
-                }
-                Storage::disk('system')->put('HAS_MIGRATE', time());
-                DB::commit();
-            } catch (Exception $th) {
-                DB::rollback();
-                throw new Exception($th->getMessage());
-            }
+              $_SESSION['id'] = sha1(microtime(true));
         }
-    }
-
-    private function validate() : bool
-    {
-        if(isset($_SESSION['csrf_key']) || isset($_SESSION['csrf_val']))
-        {
-            if(isset($_GET[$_SESSION['csrf_key']]) && $_GET[$_SESSION['csrf_key']] === $_SESSION['csrf_val'])
-            {
-                return true;
-            }   
-        }
-
-        $this->csrf_generate();
-        return false;
         
-    }
-
-    public static function csrf_generate()
-    {
-        $str = str_split("abcdefghijklmnopqrstuvwxyz", 1);
-        $_SESSION['csrf_key'] = $str[array_rand($str)];
-        $_SESSION['csrf_val'] = sha1(time());
     }
 
     private function navigate()
@@ -114,10 +73,28 @@ class Aplikasi extends Route {
         {
             $_SESSION['url'] = [
                 'current' => [
-                    'link' => '/',
+                    'link' => sha1('/'),
+                    'params' => array()
+                ],
+                'before' => [
+                    'link' => sha1('/'),
                     'params' => array()
                 ]
             ];
+        }
+        else
+        {
+            if(isset($_COOKIE[$_SESSION['id']]))
+            {
+                $_SESSION['url']['before'] = $_SESSION['url']['current'];
+
+                $_SESSION['url']['current'] = [
+                    'link' => $_COOKIE[$_SESSION['id']],
+                    'params' => $_GET
+                ];
+
+                setcookie($_SESSION['id'], "", 1);
+            }
         }
         
     }

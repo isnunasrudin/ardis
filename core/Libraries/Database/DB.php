@@ -25,6 +25,12 @@ class DB {
         return $this->table;
     }
 
+    public function _table($table)
+    {
+        $this->table = $table;
+        return $this;
+    }
+
     public static function _getConn() : mysqli
     {
         if(self::$conn === null) self::$conn = new mysqli(config('db_host'), config('db_user'), config('db_password'), config('db_name'));

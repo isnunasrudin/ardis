@@ -3,6 +3,7 @@
 use Libraries\Config;
 use Libraries\DotEnv;
 use Libraries\Response;
+use Libraries\Route;
 use Libraries\URL;
 use Libraries\View;
 
@@ -34,6 +35,22 @@ if(!function_exists('session'))
     function session(&$key)
     {
         return $_SESSION[$key];
+    }
+}
+
+if(!function_exists('url_make'))
+{
+    function url_make($link)
+    {
+        return URL::make($link);
+    }
+}
+
+if(!function_exists('url_active'))
+{
+    function url_active($url)
+    {
+        return Route::_isActive($url);
     }
 }
 

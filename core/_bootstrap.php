@@ -10,10 +10,6 @@ define('VIEW_DIR', APP_DIR . 'views' . DIRECTORY_SEPARATOR);
 define('MIGRATION_DIR', ROOT_DIR . 'migrations' . DIRECTORY_SEPARATOR);
 define('STORAGE_DIR', ROOT_DIR . 'storage' . DIRECTORY_SEPARATOR);
 
-//Init PHP System
-session_name("YEN_NING_TAWANG_ONO_LINTANG");
-session_start();
-
 // === Autoloader ===
 
 //Module

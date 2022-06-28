@@ -48,6 +48,12 @@ abstract class Migration
         return $this;
     }
 
+    public function text($column)
+    {
+        $this->column[] = "$column text NOT NULL";
+        return $this;
+    }
+
     public function timestamp($column)
     {
         $this->column[] = "$column timestamp NOT NULL";
