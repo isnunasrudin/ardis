@@ -6,6 +6,7 @@ use Exception;
 use mysqli;
 use Libraries\Stringable;
 use Libraries\Collection;
+use mysqli_result;
 
 class DB {
 
@@ -14,6 +15,7 @@ class DB {
     public $table = null;
     private $db_where = array();
     private $db_binding = array();
+    private $db_select = array('*');
 
     public function __construct(string $class = "")
     {
@@ -53,6 +55,11 @@ class DB {
         self::_getConn()->rollback();
     }
 
+    public static function customQuery($sql) : mysqli_result|bool|null
+    {
+        return self::getConn()->query($sql);
+    }
+
     public function _where($column, $value)
     {
         $this->db_where[$column] = $value;
@@ -61,32 +68,27 @@ class DB {
 
     private function _whereBuilder() : string
     {
-        return count($this->db_binding) > 0 ? "WHERE " . implode(",", array_map(function($key, $val){
+        return count($this->db_where) > 0 ? "WHERE " . implode(" AND ", array_map(function($key, $val){
             $this->db_binding[] = $val;
             return "$key = ?";
         }, array_keys($this->db_where), array_values($this->db_where))) : '';
     }
 
-    public function _get()
+    private function _selectBuilder() : string
     {
-        $stmt = $this->_getConn()->prepare("SELECT * FROM $this->table " . $this->_whereBuilder());
-
-        $stmt->execute($this->db_binding);
-        $result = $stmt->get_result();
-
-        return Collection::mysqlresultToObject($result, get_called_class());
+        return implode("*", $this->db_select);
     }
 
     public function _insert(array $data)
     {
-        if($this->uuidPrimaryKey)
+        if(isset($this->uuidPrimaryKey) && $this->uuidPrimaryKey)
         {
             $data = array_merge($data, [$this->primaryKey => Stringable::uuid()]);
         }
 
         $now = date('Y-m-d H:i:s');
 
-        if($this->timestamps)
+        if(isset($this->timestamps) && $this->timestamps)
         {
             $data = array_merge($data, [
                 'created_at' => $now,
@@ -105,36 +107,12 @@ class DB {
 
         $stmt->execute($values);
 
-        dd($this->_getConn()->insert_id);
-    }
-
-    public function _count()
-    {
-        $stmt = $this->_getConn()->prepare("SELECT COUNT(*) AS db_count FROM $this->table " . $this->_whereBuilder());
-        for($i=0; $i < count($this->db_binding); $i++)
-        {
-            $stmt->bind_param($this->db_binding[$i][0], $this->db_binding[$i][1]);
-        }
-
-        $stmt->execute();
-        return $stmt->get_result()->fetch_array()['db_count'];
+        return $this->_find($this->_getConn()->insert_id);
     }
 
     public function _find($id)
     {
         return $this->_where('id', $id)->_first();
-    }
-
-    public function _first()
-    {
-        $stmt = $this->_getConn()->prepare("SELECT * FROM $this->table " . $this->_whereBuilder());
-        for($i=0; $i < count($this->db_binding); $i++)
-        {
-            $stmt->bind_param($this->db_binding[$i][0], $this->db_binding[$i][1]);
-        }
-
-        $stmt->execute();
-        return $stmt->get_result()->fetch_object(get_called_class());
     }
 
     public static function __callStatic($name, $arguments)
@@ -164,7 +142,34 @@ class DB {
             return $result;
         }
 
-        throw new Exception("Atribut tidak ditemukan");
+        throw new Exception("Atribut $name tidak ditemukan");
+    }
+
+    // == GETTER ==
+    
+    
+
+    public function _get()
+    {
+        $stmt = $this->_getConn()->prepare("SELECT " . $this->_selectBuilder() . " FROM $this->table " . $this->_whereBuilder());
+        $stmt->execute($this->db_binding);
+        $result = $stmt->get_result();
+
+        return Collection::mysqlresultToObject($result, get_called_class());
+    }
+
+    public function _first()
+    {
+        $stmt = $this->_getConn()->prepare("SELECT " . $this->_selectBuilder() . " FROM $this->table " . $this->_whereBuilder() . " LIMIT 1");
+        $stmt->execute($this->db_binding);
+        return $stmt->get_result()->fetch_object(get_called_class());
+    }
+
+    public function _count()
+    {
+        $stmt = $this->_getConn()->prepare("SELECT COUNT(*) AS db_count FROM $this->table " . $this->_whereBuilder());
+        $stmt->execute($this->db_binding);
+        return $stmt->get_result()->fetch_array()['db_count'];
     }
 
 }

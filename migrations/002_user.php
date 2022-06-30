@@ -13,6 +13,7 @@ return new class extends Migration implements MigrationInterface {
         $this->string('name');
         $this->string('email')->unique();
         $this->integer('role_id')->foreign('role');
+        $this->string('token')->nullable();
         $this->timestamps(
             withDeletedAt: true
         );

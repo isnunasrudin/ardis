@@ -23,7 +23,7 @@ abstract class Migration
     public function execute($table)
     {
         call_user_func([$this, 'run']);
-        $sql = "CREATE TABLE IF NOT EXISTS $table (" . implode(",", array_merge($this->column, $this->attrib)) . ");";
+        $sql = "CREATE TABLE IF NOT EXISTS $table (" . implode(",", array_merge($this->column, $this->attrib)) . ") ENGINE = InnoDB;";
         DB::_getConn()->query($sql);
         if(count($this->indexs) > 0){
             $sql = "";
@@ -50,13 +50,19 @@ abstract class Migration
 
     public function text($column)
     {
-        $this->column[] = "$column text NOT NULL";
+        $this->column[] = "$column TEXT NOT NULL";
         return $this;
     }
 
     public function timestamp($column)
     {
         $this->column[] = "$column timestamp NOT NULL";
+        return $this;
+    }
+
+    public function date($column)
+    {
+        $this->column[] = "$column date NOT NULL";
         return $this;
     }
 

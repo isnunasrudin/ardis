@@ -6,7 +6,7 @@ class Route
 {
     protected static $routes = array();
 
-    private static $current = null;
+    public static $current = null;
 
     public static function _setCurrent($url_hashed)
     {

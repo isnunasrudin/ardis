@@ -3,9 +3,12 @@
 namespace Libraries;
 
 use ArrayAccess;
+use ArrayIterator;
+use IteratorAggregate;
 use mysqli_result;
+use Traversable;
 
-class Collection implements ArrayAccess {
+class Collection implements ArrayAccess, IteratorAggregate {
 
     protected $data = array();
 
@@ -40,6 +43,20 @@ class Collection implements ArrayAccess {
         return $this;
     }
 
+    public function pluck($key) : self
+    {
+        foreach($this->data as $k => $data)
+        {
+            $this->offsetSet($k, $data->$key);
+        }
+        return $this;
+    }
+
+    public function toArray() : array
+    {
+        return (array) $this->data;
+    }
+
     // ArrayAccess
 
     public function offsetSet(mixed $offset, mixed $value): void
@@ -64,6 +81,11 @@ class Collection implements ArrayAccess {
     public function offsetGet(mixed $offset): mixed
     {
         return isset($this->data[$offset]) ? $this->data[$offset] : null;
+    }
+
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->data);
     }
 
 }
