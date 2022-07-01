@@ -13,7 +13,7 @@
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Kata Sandi (GTK) / Tanggal Lahir (Siswa)</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan Kata Sandi/Tgl. Lahir">
-                <small class="form-text text-muted"><i class="fa-solid fa-circle-info"></i> Format Tgl. Lahir: <?= date('Y-m-d') ?></small>
+                <small class="form-text text-muted"><i class="fa-solid fa-circle-info"></i> Format Tgl. Lahir: <?= e(date('Y-m-d')) ?></small>
               </div>
               <button type="submit" class="btn btn-primary mx-auto d-block">LOGIN</button>
           </form>

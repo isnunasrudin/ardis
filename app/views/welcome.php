@@ -2,7 +2,7 @@
     <section id="SELAMAT_DATANG" class="my-auto mx-auto" style="width: 650px">
         <div class="d-block text-center mb-4 mt-4 mt-sm-0">
             <h1 class="text-primary fw-bold display-5">Arsip Digital Siswa</h1>
-            <p class="text-secondary fw-bold">Selamat datang di layanan Arsip Digital Siswa. Layanan ini diperuntukkan sebagai sistem pendataan bagi siswa-siswi <?= config('sekolah.name') ?>.</p>
+            <p class="text-secondary fw-bold">Selamat datang di layanan Arsip Digital Siswa. Layanan ini diperuntukkan sebagai sistem pendataan bagi siswa-siswi <?= e(config('sekolah.name')) ?>.</p>
         </div>
         <div class="card">
             <div class="card-body">
