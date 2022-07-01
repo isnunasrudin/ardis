@@ -13,6 +13,9 @@ class Aplikasi extends Route {
         session_name("YEN_NING_TAWANG_ONO_LINTANG");
         session_start();
 
+        //Set DateTime
+        date_default_timezone_set("Asia/Jakarta");
+
         //Navigator
         $this->navigate();
 
