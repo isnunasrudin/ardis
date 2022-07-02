@@ -39,6 +39,9 @@
                     <a class="nav-link <?= url_active('/') ? 'active' : '' ?>" data-target="<?= url_make('/') ?>">Beranda</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?= url_active('sample') ? 'active' : '' ?>" data-target="<?= url_make('sample') ?>">Buat Data</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?= url_active('about') ? 'active' : '' ?>" data-target="<?= url_make('about') ?>">Tentang Kami</a>
                 </li>
             </ul>

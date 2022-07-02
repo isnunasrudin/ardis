@@ -10,3 +10,5 @@ Route::post('elly', "Welcome@login_run");
 
 Route::get('about', "AboutController@us");
 Route::get('zhen', "Welcome@zhen");
+
+Route::get('sample', "SampleController@index");
