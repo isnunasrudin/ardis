@@ -35,7 +35,7 @@ class Aplikasi extends Route {
                 $context = explode('@', $response);
                 $class = "Controllers\\" . $context[0];
                 
-                $result = call_user_func([new $class(), $context[1]], new Request());
+                $result = call_user_func_array([new $class(), $context[1]], [new Request()]);
                 if($result instanceof Response)
                 {
                     ob_clean();

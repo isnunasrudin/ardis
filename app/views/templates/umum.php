@@ -39,7 +39,7 @@
                     <a class="nav-link <?= url_active('/') ? 'active' : '' ?>" data-target="<?= url_make('/') ?>">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= url_active('nurul') ? 'active' : '' ?>" data-target="<?= url_make('nurul') ?>">Tentang Kami</a>
+                    <a class="nav-link <?= url_active('about') ? 'active' : '' ?>" data-target="<?= url_make('about') ?>">Tentang Kami</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
