@@ -27,8 +27,6 @@
                         <a href="https://github.com/Rahmaninurul" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
-                
-                
             </div>
         </div>
     </div>
@@ -86,14 +84,11 @@
                     </tbody>
                 </table>
                 <div class="d-flex">
-                    
+                    <div class="btn-group mx-auto" role="group" aria-label="Basic outlined example">
+                        <a href="https://instagram.com/isnunas" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://github.com/isnunasrudin" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
+                    </div>   
                 </div>
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="https://instagram.com/isnunas" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://github.com/isnunasrudin" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
-                    
-                </div>
-                
             </div>
         </div>
     </div>
@@ -121,10 +116,11 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <a href="https://instagram.com/zhendi_13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://github.com/Zhendi13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
-                    
+                <div class="d-flex">
+                    <div class="btn-group mx-auto" role="group" aria-label="Basic outlined example">
+                        <a href="https://instagram.com/zhendi_13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://github.com/Zhendi13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -151,7 +147,12 @@
                         </tr>
                     </tbody>
                 </table>
-                
+                <div class="d-flex">
+                    <div class="btn-group mx-auto" role="group" aria-label="Basic outlined example">
+                        <a href="https://instagram.com/zhendi_13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://github.com/Zhendi13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
