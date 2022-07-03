@@ -15,7 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://bootswatch.com/5/pulse/bootstrap.min.css"
         rel="stylesheet">
-    <link rel="stylesheet" href="<?= asset('style.css') ?>">
+    <link rel="stylesheet" href="<?= asset('style.css?v=1') ?>">
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
@@ -54,7 +54,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         <?= $content ?>
     </div>
         

@@ -78,6 +78,14 @@ if(!function_exists('asset'))
     }
 }
 
+if(!function_exists('bcrypt'))
+{
+    function bcrypt($val) : string
+    {
+        return password_hash($val, PASSWORD_BCRYPT);
+    }
+}
+
 if(!function_exists('env'))
 {
     function env($key, $default = null)

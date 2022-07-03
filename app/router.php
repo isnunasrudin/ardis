@@ -2,13 +2,11 @@
 
 use Libraries\Route;
 
-Route::get('/', "Welcome@index");
-Route::post('/', "Welcome@nisn");
+Route::get('/', "WelcomeController@index");
+Route::post('/', "WelcomeController@nisn");
 
-Route::get('elly', "Welcome@elly");
-Route::post('elly', "Welcome@login_run");
+Route::get('elly', "WelcomeController@elly");
+Route::post('elly', "WelcomeController@login_run");
 
 Route::get('about', "AboutController@us");
-Route::get('zhen', "Welcome@zhen");
-
-Route::get('sample', "SampleController@index");
+Route::get('zhen', "WelcomeController@zhen");

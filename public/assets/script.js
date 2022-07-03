@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 text: "Kami sedang menyiapkan data",
                 didOpen: () => {
                     popup.showLoading();
-                    fetch('.', {
+                    setTimeout(() => fetch('.', {
                         method: 'POST',
                         body: (new FormData(document.querySelector('form')))
                     }).then((r) => r.json()).then(result => {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         else popup.fire('Tidak Ditemukan!', result.message, 'warning');
                     }).catch( () => {
                         popup.fire('Kesalahan Sistem!', 'Gagal mengambil data dari server.', 'error');
-                    })
+                    }), 700);
                 }
             })
         })

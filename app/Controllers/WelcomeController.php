@@ -3,10 +3,9 @@
 namespace Controllers;
 
 use Libraries\Request;
-use Libraries\Route;
 use Models\SiswaInfo;
 
-class Welcome
+class WelcomeController
 {
     public function index()
     {

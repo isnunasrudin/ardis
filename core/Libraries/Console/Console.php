@@ -118,6 +118,8 @@ class Console extends Styling
                 $migrate = require_once(MIGRATION_DIR . $file);
                 $migrate->execute($name);
 
+                if(method_exists($migrate, 'postExecute')) $migrate->postExecute();
+
                 DB::table('migrations')->insert([
                     'data' => $name,
                     'run_at' => $NOW
