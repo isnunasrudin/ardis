@@ -2,12 +2,10 @@
 
 namespace Controllers;
 
-use Libraries\Request;
-
 class AboutController
 {
-    public function us(Request $request)
+    public function us()
     {
-        return response()->view("nurul", title: "Tentang Kami");
+        return response()->view("about_us", title: "Tentang Kami");
     }
 }

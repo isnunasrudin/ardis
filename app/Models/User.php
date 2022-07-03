@@ -16,4 +16,9 @@ class User extends Model {
         return $this->belongsTo(Role::class);
     }
 
+    public function isRole($role) : bool
+    {
+        return $this->role->name == $role;
+    }
+
 }

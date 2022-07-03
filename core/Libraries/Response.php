@@ -28,6 +28,30 @@ class Response
         return $this;
     }
 
+    public function pendingRedirect($route_name, array $params = array())
+    {
+        $_SESSION['url']['back'] = $_SESSION['url']['current'];
+        $_SESSION['url']['current'] = [
+            'link' => sha1($route_name),
+            'params' => $params
+        ];
+        
+        return $this;
+    }
+
+    public function redirect($route_name, array $params = array()) : self
+    {
+        $_SESSION['url']['back'] = $_SESSION['url']['current'];
+        $_SESSION['url']['current'] = [
+            'link' => sha1($route_name),
+            'params' => $params
+        ];
+
+        $this->addHeader('Location', '?' . http_build_query($params));
+
+        return $this;
+    }
+
     public function getHeaders() : array
     {
         return $this->headers;

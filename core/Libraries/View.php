@@ -11,6 +11,8 @@ class View
         if($template == null) $template = 'umum';
 
         if($title === null) $title = 'Tidak Ditemukan';
+
+        $file = str_replace('.', DIRECTORY_SEPARATOR, $file);
         $file .= '.php';
         if(!file_exists(VIEW_DIR . $file)) throw new Exception("Berkas view <b>$file</b> tidak ditemukan");
 

@@ -7,48 +7,51 @@
     <title><?= e($title) ?> - ARDIS <?= config('sekolah.name') ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"> 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://bootswatch.com/5/pulse/bootstrap.min.css"
-        rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://bootswatch.com/5/pulse/bootstrap.min.css">
     <link rel="stylesheet" href="<?= asset('style.css?v=1') ?>">
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="<?= asset('script.js') ?>"></script>
+    <script src="<?= asset('script.js?v=1') ?>"></script>
     
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" data-target="<?= url_make('/') ?>">ARDIS</a>
+            <a class="navbar-brand" data-target="<?= url_active('auth.home') ? url_make('auth.home') : url_make('/') ?>">ARDIS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
+                
+                <?php if(auth()::check()) : ?>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_active('auth.home') ? 'active' : '' ?>" data-target="<?= url_make('auth.home') ?>">Beranda</a>
+                </li>
+                <?php else : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('/') ? 'active' : '' ?>" data-target="<?= url_make('/') ?>">Beranda</a>
                 </li>
+                <?php endif; ?>
+
                 <li class="nav-item">
-                    <a class="nav-link <?= url_active('sample') ? 'active' : '' ?>" data-target="<?= url_make('sample') ?>">Buat Data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= url_active('about') ? 'active' : '' ?>" data-target="<?= url_make('about') ?>">Tentang Kami</a>
+                    <a class="nav-link <?= url_active('about_us') ? 'active' : '' ?>" data-target="<?= url_make('about_us') ?>">Tentang Kami</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
+                <?php if(auth()::check()) : ?>
                 <li class="nav-item">
-                    <a class="nav-link <?= url_active('elly') ? 'active' : '' ?>" data-target="<?= url_make('elly') ?>">Masuk</a>
+                    <a class="nav-link <?= url_active('logout') ? 'active' : '' ?>" data-target="<?= url_make('logout') ?>">Keluar</a>
                 </li>
+                <?php else : ?>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_active('login') ? 'active' : '' ?>" data-target="<?= url_make('login') ?>">Masuk</a>
+                </li>
+                <?php endif; ?>
             </ul>
             </div>
         </div>

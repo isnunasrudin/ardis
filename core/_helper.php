@@ -1,5 +1,7 @@
 <?php
 
+use Libraries\Authenticable\Auth;
+use Libraries\Collection;
 use Libraries\Config;
 use Libraries\DotEnv;
 use Libraries\Response;
@@ -83,6 +85,22 @@ if(!function_exists('bcrypt'))
     function bcrypt($val) : string
     {
         return password_hash($val, PASSWORD_BCRYPT);
+    }
+}
+
+if(!function_exists('collect'))
+{
+    function collect(array $data)
+    {
+        return new Collection($data);
+    }
+}
+
+if(!function_exists('auth'))
+{
+    function auth()
+    {
+        return Auth::class;
     }
 }
 

@@ -30,6 +30,15 @@ spl_autoload_register(function($class){
     }
 });
 
+//Middlewares
+spl_autoload_register(function($class){
+    if(preg_match('/^Middlewares\\\/', $class))
+    {
+        $path = APP_DIR . str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+        if(file_exists($path)) require $path;
+    }
+});
+
 //Controllers
 spl_autoload_register(function($class){
     if(preg_match('/^Controllers\\\/', $class))

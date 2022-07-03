@@ -1,12 +1,20 @@
 <?php
 
 use Libraries\Route;
+use Middlewares\AuthMiddleware;
+use Middlewares\GuestMiddleware;
 
-Route::get('/', "WelcomeController@index");
-Route::post('/', "WelcomeController@nisn");
+Route::get('about_us', "AboutController@us");
 
-Route::get('elly', "WelcomeController@elly");
-Route::post('elly', "WelcomeController@login_run");
+Route::middleware([GuestMiddleware::class], function(){
+    Route::get('/', "WelcomeController@index");
+    Route::post('/', "WelcomeController@nisn");
 
-Route::get('about', "AboutController@us");
-Route::get('zhen', "WelcomeController@zhen");
+    Route::get('login', "LoginController@index");
+    Route::post('login', "LoginController@login_run");
+});
+
+Route::middleware([AuthMiddleware::class], function(){
+    Route::get('auth.home', "Auth\\HomeController@index");
+    Route::get('logout', "LoginController@logout");
+});

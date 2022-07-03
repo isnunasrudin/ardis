@@ -5,8 +5,9 @@ namespace Libraries;
 class Route
 {
     protected static $routes = array();
-
     public static $current = null;
+
+    private static $active_middlewares = array();
 
     public static function _setCurrent($url_hashed)
     {
@@ -22,7 +23,10 @@ class Route
     {
         if(!isset(self::$routes[$method][$url]))
         {
-            self::$routes[$method][sha1($url)] = $callback;
+            self::$routes[$method][sha1($url)] = [
+                'callback' => $callback,
+                'middlewares' => self::$active_middlewares
+            ];
         }
     }
 
@@ -34,5 +38,12 @@ class Route
     public static function post($url, $callback)
     {
         self::_add($url, 'POST', $callback);
+    }
+
+    public static function middleware(array $middlewares, callable $callback)
+    {
+        self::$active_middlewares = $middlewares;
+        $callback();
+        self::$active_middlewares = array();
     }
 }

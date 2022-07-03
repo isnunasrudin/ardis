@@ -13,7 +13,7 @@
                             <input type="text" class="form-control" id="nisn-search" placeholder="Masukkan NISN (Nomor Induk Siswa Nasional)" required pattern="\w{10}" name="nisn">
                         </div>
                         <div class="col-sm-auto">
-                            <button class="btn btn-primary px-5"><i class="fa-solid fa-magnifying-glass"></i> CARI!</button>
+                            <button class="btn btn-primary px-5"><i class="fa-solid fa-magnifying-glass me-1"></i> CARI!</button>
                         </div>
                     </div>
                     <small class="form-text text-muted"><i class="fa-solid fa-circle-info"></i> NISN adalah nomor unik yang dimiliki tiap peserta didik</small>

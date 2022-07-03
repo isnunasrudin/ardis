@@ -26,14 +26,14 @@ return new class extends Migration implements MigrationInterface {
         User::insert([
             "role_id" => 3,
             "full_name" => "Kepala Sekolah",
-            "email" => "kepalasekolah@localhost",
+            "email" => "kepalasekolah@local.com",
             "password" => bcrypt("12345678")
         ]);
 
         User::insert([
             "role_id" => 2,
             "full_name" => "Operator",
-            "email" => "admin@localhost",
+            "email" => "admin@local.com",
             "password" => bcrypt("12345678")
         ]);
     }

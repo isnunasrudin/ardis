@@ -19,28 +19,6 @@ class URL
         return self::base_url() . 'assets/' . $name;
     }
 
-    public static function redirect($url, array $params = [])
-    {
-        $_SESSION['url'] = [
-            'before' => $_SESSION['url']['current'],
-            'current' => [
-                'link' => $url,
-                'params' => $params
-            ]
-        ];
-
-        header(self::base_url() .'?'. http_build_query([$_SESSION['csrf_key'] => $_SESSION['csrf_val']]));
-    }
-
-    public static function redirect_back()
-    {
-        $_SESSION['url'] = [
-            'current' => $_SESSION['url']['before'] ?? ['link' => '/', 'params' => array()]
-        ];
-
-        header(self::base_url() .'?'. http_build_query([$_SESSION['csrf_key'] => $_SESSION['csrf_val']]));
-    }
-
     public static function make($url_name)
     {
         return $_SESSION['id'] . "=" . sha1($url_name);

@@ -1,5 +1,6 @@
 <?php
 
+use Libraries\Authenticable\Auth;
 use Libraries\Request;
 use Libraries\Response;
 use Libraries\Route;
@@ -21,33 +22,41 @@ class Aplikasi extends Route {
 
         $this->validate();
 
+        //Request
+        $request = new Request($_POST, $_GET, $_FILES);
+
         //Check is isset the routes
-        $method = Request::method();
         $current_url = URL::current_url();
 
-        if(isset(Route::$routes[$method][$current_url]))
+        //Auth Validation
+        Auth::validate();
+
+        if(isset(Route::$routes[$request->method()][$current_url]))
         {
             Route::_setCurrent($current_url);
-            $response = Route::$routes[$method][$current_url];
+            $response = Route::$routes[$request->method()][$current_url]['callback'];
+
+            $middlewares = Route::$routes[$request->method()][$current_url]['middlewares'];
+
+            foreach($middlewares as $middleware)
+            {
+                $mid_result = (new $middleware())->run($request);
+                if($mid_result instanceof Request) $request = $mid_result;
+                else
+                {
+                    return $this->responseExec($mid_result);
+                }
+            }
+
             if(is_callable($response)) echo $response();
             else
             {
                 $context = explode('@', $response);
                 $class = "Controllers\\" . $context[0];
                 
-                $result = call_user_func_array([new $class(), $context[1]], [new Request()]);
-                if($result instanceof Response)
-                {
-                    ob_clean();
-
-                    foreach($result->getHeaders() as $k => $v) header("$k: $v");
-                    http_response_code($result->getHttpCode());
-                    echo $result->getBody();
-                }
-                else
-                {
-                    echo $result;
-                }
+                $result = call_user_func_array([new $class(), $context[1]], [$request]);
+                if($result instanceof Response) $this->responseExec($result);
+                else echo $result;
             }
         }
         else
@@ -59,6 +68,15 @@ class Aplikasi extends Route {
             http_response_code(404);
             die('Halaman Tidak Ditemukan');
         }
+    }
+
+    private function responseExec(Response $response)
+    {
+        ob_clean();
+
+        foreach($response->getHeaders() as $k => $v) header("$k: $v");
+        http_response_code($response->getHttpCode());
+        echo $response->getBody();
     }
 
     private function validate()

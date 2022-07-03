@@ -52,6 +52,12 @@ class Collection implements ArrayAccess, IteratorAggregate {
         return $this;
     }
 
+    public function filter(callable $callback)
+    {
+        foreach($this as $k => $v) if($callback($v) === FALSE) $this->offsetUnset($k);
+        return $this;
+    }
+
     public function toArray() : array
     {
         return (array) $this->data;

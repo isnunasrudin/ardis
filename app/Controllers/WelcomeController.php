@@ -18,7 +18,7 @@ class WelcomeController
             'status' => true,
             'message' => 'Data Ditemukan! Silahkan masuk dengan NISN dan Tanggal Lahir',
             'data' => [
-                'link' => url_make('elly')
+                'link' => url_make('login')
             ]
         ]);
 
@@ -26,28 +26,5 @@ class WelcomeController
             'status' => false,
             'message' => 'NISN yang anda masukkan tidak terdaftar di database kami'
         ]);
-    }
-
-    public function nurul()
-    {
-        return view('nurul');
-    }
-
-    public function elly()
-    {
-        return view('fyea', title: 'Masuk');
-    }
-
-    public function login_run()
-    {
-        return response()->json([
-            'status' => false,
-            'message' => 'Informasi login yang diberikan salah!'
-        ]);
-    }
-
-    public function zhen()
-    {
-        return view('zhendi');
     }
 }
