@@ -106,7 +106,7 @@
                     <span class="badge bg-danger">Assist, Tester</span>
                 </div>
                 <table class="table">
-                    <p class="mb-1"><span class="badge bg-info">NPM</span> 18183207023</p>
+                    <p class="mb-1"><span class="badge bg-info">NPM</span> 17183207023</p>
                     <hr class="m-0" />
                     <p class="mt-1"><span class="badge bg-info">Kelas / Prodi</span> PTI 6B</p>
                 </table>
