@@ -112,8 +112,8 @@
                 </table>
                 <div class="d-flex">
                     <div class="btn-group mx-auto" role="group" aria-label="Basic outlined example">
-                        <a href="https://instagram.com/zhendi_13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://github.com/Zhendi13" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://instagram.com/baguss_yuliantoo" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://github.com/bagusyul" type="button" class="btn btn-outline-primary"><i class="fa-brands fa-github"></i></a>
                     </div>
                 </div>
             </div>
