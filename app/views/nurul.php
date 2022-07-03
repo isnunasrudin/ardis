@@ -77,7 +77,7 @@
                 <img src="<?= e(asset("img/ellyfiana.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
             </div>
             <div class="card-body">
-                <h5 class="mb-0 card-title text-center">Ellyfiana NS</h5>
+                <h5 class="mb-0 card-title text-center"><b>Elly</b>fiana NS</h5>
                 <div class="mb-3 d-block text-center">
                     <span class="badge bg-danger">Front-End, Tester</span>
                 </div>
@@ -101,9 +101,9 @@
                 <img src="<?= e(asset("img/bagus.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
             </div>
             <div class="card-body">
-                <h5 class="mb-0 card-title text-center">Bagus Yulianto</h5>
+                <h5 class="mb-0 card-title text-center"><b>Bagus</b> Yulianto</h5>
                 <div class="mb-3 d-block text-center">
-                    <span class="badge bg-danger">Assist, Tester</span>
+                    <span class="badge bg-danger">Deploy Assist</span>
                 </div>
                 <table class="table">
                     <p class="mb-1"><span class="badge bg-info">NPM</span> 17183207023</p>
