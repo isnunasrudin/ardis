@@ -133,6 +133,7 @@ class DB {
         if(method_exists($this, $name))
         {
             $result = call_user_func([$this, $name]);
+
             if($result instanceof DB)
             {
                 $operation = $result->operation ?? '_get';
@@ -174,8 +175,6 @@ class DB {
     }
 
     // == GETTER ==
-    
-    
 
     public function _get()
     {
@@ -192,7 +191,7 @@ class DB {
         $stmt->execute($this->db_binding);
 
         $result = $stmt->get_result()->fetch_object(get_called_class());
-        $result->table = $this->table;
+        if(!is_null($result)) $result->table = $this->table; 
         return $result;
     }
 

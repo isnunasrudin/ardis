@@ -4,6 +4,7 @@ namespace Controllers\Auth;
 
 use Libraries\Request;
 use Models\Rombel;
+use Models\User;
 
 class RombelController
 {
@@ -16,7 +17,7 @@ class RombelController
         return view('auth.rombel', $data, title: 'Rombongan Belajar');
     }
 
-    public function add(Request $request)
+    public function action(Request $request)
     {
         switch ($request->post('action')) {
             case 'tambah':

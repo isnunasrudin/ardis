@@ -16,9 +16,9 @@ class User extends Model {
         return $this->belongsTo(Role::class);
     }
 
-    public function isRole($role) : bool
+    public function isRole(...$role) : bool
     {
-        return $this->role->name == $role;
+        return in_array($this->role->name, $role);
     }
 
     public function avatar_link()

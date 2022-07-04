@@ -22,7 +22,7 @@ Route::middleware([AuthMiddleware::class], function(){
     Route::post('auth.siswa.tambah', "Auth\\SiswaController@tambah_post");
 
     Route::get('auth.rombel', "Auth\\RombelController@index");
-    Route::post('auth.rombel', "Auth\\RombelController@add");
+    Route::post('auth.rombel', "Auth\\RombelController@action");
 
     Route::get('logout', "LoginController@logout");
 });

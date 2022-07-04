@@ -29,6 +29,9 @@
             <ul class="navbar-nav me-auto">
                 
                 <?php if(auth()::check()) : ?>
+                
+                
+                <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('auth.home') ? 'active' : '' ?>" data-target="<?= url_make('auth.home') ?>">Beranda</a>
                 </li>
@@ -38,6 +41,10 @@
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('auth.rombel') ? 'active' : '' ?>" data-target="<?= url_make('auth.rombel') ?>">Rombongan Belajar</a>
                 </li>
+                <?php else : ?>
+
+                <?php endif; ?>
+
                 <?php else : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('/') ? 'active' : '' ?>" data-target="<?= url_make('/') ?>">Beranda</a>
