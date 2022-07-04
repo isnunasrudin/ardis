@@ -8,6 +8,11 @@ class SiswaInfo extends Model
 {
     public function akun()
     {
-        return $this->belongsTo('user');
+        return $this->belongsTo(User::class);
+    }
+
+    public function berkas()
+    {
+        return $this->hasMany(SiswaBerkas::class);
     }
 }

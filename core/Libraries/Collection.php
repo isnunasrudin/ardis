@@ -63,6 +63,11 @@ class Collection implements ArrayAccess, IteratorAggregate {
         return (array) $this->data;
     }
 
+    public function count() : int
+    {
+        return count($this->data);
+    }
+
     // ArrayAccess
 
     public function offsetSet(mixed $offset, mixed $value): void

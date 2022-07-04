@@ -32,7 +32,7 @@ function gasken(link)
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelectorAll('a[data-target]').forEach(
+    document.querySelectorAll('a[data-target],button[data-target]').forEach(
         obj => obj.addEventListener('click', () => gasken(obj.getAttribute('data-target')))
     );
 

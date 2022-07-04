@@ -26,6 +26,9 @@ return new class extends Migration implements MigrationInterface
         $this->integer('status', 1)->nullable();
         $this->string('asal_sekolah')->nullable();
 
+        $this->integer('kelas')->nullable();
+        $this->integer('rombel_id')->nullable();
+
         $this->timestamps(
             withDeletedAt: true
         );

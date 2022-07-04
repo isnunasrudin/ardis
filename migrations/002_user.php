@@ -14,6 +14,7 @@ return new class extends Migration implements MigrationInterface {
         $this->string('full_name');
         $this->string('email')->unique();
         $this->integer('role_id')->foreign('role');
+        $this->string('avatar')->nullable();
         $this->string('token')->nullable();
         $this->string('password')->nullable();
         $this->timestamps(

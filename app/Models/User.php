@@ -21,4 +21,14 @@ class User extends Model {
         return $this->role->name == $role;
     }
 
+    public function avatar_link()
+    {
+        return asset('img/user.png');
+    }
+
+    public function nick_name()
+    {
+        return preg_replace("/^(\w)(.*)/", "$1", $this->full_name);
+    }
+
 }

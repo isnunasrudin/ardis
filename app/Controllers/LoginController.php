@@ -38,16 +38,16 @@ class LoginController
                 // GTK
                 $user = User::where('email', $request->post('input_1'))->first();
                 if( $user === null ) throw new Exception();
-                if(!Auth::login($user->id)) throw new Exception();
+                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception();
             }
             else
             {
                 // Siswa
-                $data_siswa = SiswaInfo::where('nisn', $request->post('input_2'))->first();
+                $data_siswa = SiswaInfo::where('nisn', $request->post('input_1'))->first();
                 if( $data_siswa === null ) throw new Exception();
 
                 $user = $data_siswa->akun;
-                if(!Auth::login($user->id)) throw new Exception();
+                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception();
 
             }
 

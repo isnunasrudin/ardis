@@ -18,7 +18,7 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <nav class="navbar navbar-expand-lg <?= auth()::check() ? 'py-lg-2' : '' ?> navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" data-target="<?= url_active('auth.home') ? url_make('auth.home') : url_make('/') ?>">ARDIS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,12 @@
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('auth.home') ? 'active' : '' ?>" data-target="<?= url_make('auth.home') ?>">Beranda</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_active('auth.siswa') ? 'active' : '' ?>" data-target="<?= url_make('auth.siswa') ?>">Peserta Didik</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_active('auth.rombel') ? 'active' : '' ?>" data-target="<?= url_make('auth.rombel') ?>">Rombongan Belajar</a>
+                </li>
                 <?php else : ?>
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('/') ? 'active' : '' ?>" data-target="<?= url_make('/') ?>">Beranda</a>
@@ -44,8 +50,14 @@
             </ul>
             <ul class="navbar-nav">
                 <?php if(auth()::check()) : ?>
-                <li class="nav-item">
-                    <a class="nav-link <?= url_active('logout') ? 'active' : '' ?>" data-target="<?= url_make('logout') ?>">Keluar</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle <?= url_active('logout') ? 'active' : '' ?> " role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="<?= e(auth()::user()->avatar_link) ?>" width="46" height="46" class="rounded-circle bg-white me-2">
+                        <?= e(auth()::user()->full_name) ?>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" data-target="<?= url_make('logout') ?>">Keluar</a></li>
+                    </ul>
                 </li>
                 <?php else : ?>
                 <li class="nav-item">
@@ -62,7 +74,7 @@
     </div>
         
     <footer class="d-block text-center">
-        <a data-target="<?= url_make('nurul') ?>" class="fs-6">Hak Cipta &copy; 2022 Kelompok 1</a>
+        <a data-target="<?= url_make('nurul') ?>" class="fs-6">2022 - Dikembangkan Oleh Kelompok 1</a>
     </footer>
 
 </body>

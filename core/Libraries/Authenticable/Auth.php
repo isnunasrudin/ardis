@@ -29,10 +29,12 @@ class Auth
         return !is_null(self::user()); 
     }
 
-    public static function login($id) : bool
+    public static function login($id, $password) : bool
     {
         $user = User::find($id);
         if(is_null($user)) return false;
+
+        if(!password_verify($password, $user->password)) return false;
 
         $_SESSION[self::SESSION_KEY] = self::$user_id = $user->id;
         return true;
