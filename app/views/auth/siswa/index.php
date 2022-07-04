@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>
                         <?php if($peserta_didik->count() > 0) : foreach($peserta_didik as $k => $siswa) : ?>
-                        <tr>
+                        <tr data-target="<?= e($siswa->id) ?>">
                             <th scope="row"><?= e(++$k) ?></th>
                             <td><?= e($siswa->akun->full_name) ?></td>
                             <td><?= e($siswa->nisn) ?></td>
@@ -28,7 +28,9 @@
                             <td>-</td>
                             <td><?= e($siswa->created_at) ?></td>
                             <td>
-
+                                <button class="btn btn-sm btn-success edit"><i class="fa-solid fa-eye"></i></button>
+                                <button class="btn btn-sm btn-warning edit"><i class="fa-solid fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <?php endforeach; else : ?>
