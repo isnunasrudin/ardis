@@ -19,15 +19,21 @@ class Validation
     {
         foreach($this->rules as $input => $rules) foreach($rules as $rule)
         {
-            $rule = preg_split("/^(\w):(.*)?/", $rule);
-            if(isset($rule[1])) $params = explode(',', $rule[1]);
-            
+            $position = strpos($rule, ':');
+
+            if($position > 0)
+            {
+                $params = explode(',', substr($rule,( $position + 1 )));
+                $method = substr($rule, 0, -abs(strlen(implode(',', $params)) + 1));
+            }
+
             $result = $this->runRule(
-                $rule[0],
+                $method ?? $rule,
                 $this->aliases[$input] ?? $input,
                 $this->request->any($input),
-                ...$params ?? []
+                ...($params ?? [])
             );
+            
             if($result !== TRUE)
             {
                 if($this->firstError === null) $this->firstError = $result;

@@ -145,6 +145,34 @@ class DB {
         throw new Exception("Atribut $name tidak ditemukan");
     }
 
+    // == UPDATE ==
+
+    private function _updateBuilder(array $data)
+    {
+        return 'SET ' . implode(', ', array_map(function($k, $v){
+            $this->db_binding[] = $v;
+            return "$k = ?";
+        }, array_keys($data), array_values($data)));
+    }
+
+
+    public function _update(array $data)
+    {
+        $this->_where($this->primaryKey, $this->{$this->primaryKey});
+        $sql = "UPDATE $this->table " . $this->_updateBuilder($data) . ' ' . $this->_whereBuilder();
+        $stmt = $this->_getConn()->prepare($sql);
+        $stmt->execute($this->db_binding);
+    }
+
+    // == DELETE ==
+    public function _delete()
+    {
+        $this->_where($this->primaryKey, $this->{$this->primaryKey});
+        $sql = "DELETE FROM $this->table " . $this->_whereBuilder();
+        $stmt = $this->_getConn()->prepare($sql);
+        $stmt->execute($this->db_binding);
+    }
+
     // == GETTER ==
     
     
@@ -155,14 +183,17 @@ class DB {
         $stmt->execute($this->db_binding);
         $result = $stmt->get_result();
 
-        return Collection::mysqlresultToObject($result, get_called_class());
+        return Collection::mysqlresultToObject($result, get_called_class(), $this->table);
     }
 
     public function _first()
     {
         $stmt = $this->_getConn()->prepare("SELECT " . $this->_selectBuilder() . " FROM $this->table " . $this->_whereBuilder() . " LIMIT 1");
         $stmt->execute($this->db_binding);
-        return $stmt->get_result()->fetch_object(get_called_class());
+
+        $result = $stmt->get_result()->fetch_object(get_called_class());
+        $result->table = $this->table;
+        return $result;
     }
 
     public function _count()

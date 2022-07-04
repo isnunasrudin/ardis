@@ -17,10 +17,14 @@ class Collection implements ArrayAccess, IteratorAggregate {
         $this->data = $data;
     }
 
-    public static function mysqlresultToObject(mysqli_result $result, string $object) : self
+    public static function mysqlresultToObject(mysqli_result $result, string $object, $table) : self
     {
         $data = array();
-        while($r = $result->fetch_object($object)) $data[] = $r;
+        while($r = $result->fetch_object($object))
+        {
+            $r->table = $table;
+            $data[] = $r;
+        }
 
         return new self($data);
     }

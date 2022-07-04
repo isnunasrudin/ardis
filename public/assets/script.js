@@ -1,8 +1,8 @@
 const Alert = Swal.mixin({
     heightAuto: false,
     customClass: {
-      confirmButton: 'btn btn-success',
-      cancelButton: 'btn btn-danger'
+      confirmButton: 'btn btn-success mx-1',
+      cancelButton: 'btn btn-danger mx-1'
     },
     buttonsStyling: false
 });

@@ -11,5 +11,6 @@ return new class extends Migration implements MigrationInterface
     {
         $this->integer('id')->autoIncrement()->primary();
         $this->string('name')->index();
+        $this->string('display_name')->nullable();
     }
 };
