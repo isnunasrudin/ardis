@@ -21,10 +21,15 @@
                     <tbody>
                         <?php if($peserta_didik->count() > 0) : foreach($peserta_didik as $k => $siswa) : ?>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <th scope="row"><?= e(++$k) ?></th>
+                            <td><?= e($siswa->akun->full_name) ?></td>
+                            <td><?= e($siswa->nisn) ?></td>
+                            <td><?= e($siswa->kelas ?? '') . ' ' . e($siswa->rombel->name) ?></td>
+                            <td>-</td>
+                            <td><?= e($siswa->created_at) ?></td>
+                            <td>
+
+                            </td>
                         </tr>
                         <?php endforeach; else : ?>
                         <tr>
@@ -46,9 +51,9 @@
                 <div class="card-body">
                     <div class="d-grid gap-2">
                         <button class="btn btn-success" data-target="<?= e(url_make('auth.siswa.tambah')) ?>">Tambah</button>
-                        <button class="btn btn-success" data-target="<?= e(url_make('/')) ?>">Tambah Massal</button>
+                        <!-- <button class="btn btn-success" data-target="<?= e(url_make('/')) ?>">Tambah Massal</button>
                         <hr />
-                        <button class="btn btn-danger" data-target="<?= e(url_make('/')) ?>">Hapus Semua</button>
+                        <button class="btn btn-danger" data-target="<?= e(url_make('/')) ?>">Hapus Semua</button> -->
                     </div>
                 </div>
             </div>

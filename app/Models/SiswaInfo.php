@@ -15,4 +15,9 @@ class SiswaInfo extends Model
     {
         return $this->hasMany(SiswaBerkas::class);
     }
+
+    public function rombel()
+    {
+        return $this->belongsTo(Rombel::class);
+    }
 }

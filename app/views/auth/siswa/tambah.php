@@ -5,65 +5,68 @@
     </div>
     <div class="row">
         <div class="col-lg-9">
-            <div class="card">
+            <form class="card" method="POST">
                 <div class="card-header">
                     <h5 class="card-title">Daftar Peserta Didik</h5>
                 </div>
                 <div class="card-body">
                     <div class="form-group mb-4">
-                        <label for="exampleInputEmail1" class="form-label">Nama Lengkap</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <label for="input-nama" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="input-nama" name="nama" required>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleInputEmail1" class="form-label">Nomor Induk Siswa Nasional</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <label for="input-nisn" class="form-label">Nomor Induk Siswa Nasional</label>
+                        <input type="text" class="form-control" id="input-nisn" name="nisn" required>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Tempat Lahir</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-tempat-lahir" class="form-label">Tempat Lahir</label>
+                                <input type="text" class="form-control" id="input-tempat-lahir" name="tempat-lahir" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-tgl-lahir" class="form-label">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="input-tgl-lahir" name="tgl-lahir" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label for="exampleInputEmail1" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <label for="input-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="input-email" name="email" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="input-asal-sekolah" class="form-label">Asal Sekolah</label>
+                        <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Provinsi</label>
-                                <select class="form-select" id="provinsi">
+                                <label for="provinsi" class="form-label">Provinsi</label>
+                                <select class="form-select" id="provinsi" name="provinsi" required>
                                     <option value="">Sedang Memuat...</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Kabupaten</label>
-                                <select class="form-select" id="kota">
+                                <label for="kota" class="form-label">Kabupaten</label>
+                                <select class="form-select" id="kota" name="kota" required>
                                 </select>
                             </div>
                         </div>
                         <div class="col ">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Kecamatan</label>
-                                <select class="form-select" id="kecamatan">
+                                <label for="kecamatan" class="form-label">Kecamatan</label>
+                                <select class="form-select" id="kecamatan" name="kecamatan" required>
                                 </select>
                             </div>
                         </div>
                         <div class="col ">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Desa</label>
-                                <select class="form-select" id="desa">
-                                    <option value="">SILAHKAN PILIH...</option>
+                                <label for="desa" class="form-label">Desa</label>
+                                <select class="form-select" id="desa" name="desa" required>
                                 </select>
                             </div>
                         </div>
@@ -71,45 +74,58 @@
                     <div class="row g-1">
                         <div class="col-1">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Rt.</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-rt" class="form-label">Rt.</label>
+                                <input type="number" class="form-control" id="input-rt" name="rt">
                             </div>
                         </div>
                         <div class="col-1">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Rt.</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-rw" class="form-label">Rw.</label>
+                                <input type="number" class="form-control" id="input-rw" name="rw">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Alamat Lengkap</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-alamat" class="form-label">Alamat Lengkap</label>
+                                <input type="text" class="form-control" id="input-alamat" name="alamat">
                             </div>
                         </div>
                     </div>
                     <div class="row g-1">
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Tahun Masuk</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-tahun-masuk" class="form-label">Tahun Masuk</label>
+                                <input type="number" class="form-control" id="input-tahun-masuk" name="tahun-masuk" required>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Kelas</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-kelas" class="form-label">Kelas</label>
+                                <select class="form-select" id="input-kelas" name="kelas" required>
+                                    <option value="1">X (Sepuluh)</option>
+                                    <option value="2">IX (Sebelas)</option>
+                                    <option value="3">IIX (Duabelas)</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="exampleInputEmail1" class="form-label">Rombongan Belajar</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <label for="input-rombel" class="form-label">Rombongan Belajar</label>
+                                <select class="form-select" id="input-rombel" name="rombel" required>
+                                    <?php foreach($rombel as $r) : ?>
+                                    <option value="<?= e($r->id) ?>"><?= e($r->name) ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="card-footer">
+                    
+
+                <button class="btn btn-primary" type="submit">Tambahkan Data</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -196,6 +212,32 @@
                 node.value = kel.id
                 desa.appendChild(node)
             })
+        })
+    })
+
+    document.querySelector('form').addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const button = e.target.querySelector('button');
+        button.disabled = true;
+
+        const data = new FormData(e.target);
+
+        fetch('.', {
+            method: 'POST',
+            body: data
+        }).then(r => r.json()).then(result => {
+            if(result.status === true) gasken(result.link)
+            else
+            {
+                Toast.fire({
+                    title: result.message,
+                    icon: 'info'
+                });
+                button.disabled = false;
+            }
+        }).catch( () => {
+            Alert.fire('Kesalahan Sistem!', 'Gagal mengambil data dari server.', 'error').then(() => location.href = '.');
         })
     })
 </script>

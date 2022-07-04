@@ -55,6 +55,20 @@ class DB {
         self::_getConn()->rollback();
     }
 
+    public static function transaction(callable $transaction) : void
+    {
+        self::begin();
+        
+        try {
+            $transaction();
+            self::commit();
+        } catch (\Throwable $th) {
+            self::rollback();
+
+            throw new Exception($th->getMessage());
+        }
+    }
+
     public static function customQuery($sql) : mysqli_result|bool|null
     {
         return self::getConn()->query($sql);
@@ -81,6 +95,8 @@ class DB {
 
     public function _insert(array $data)
     {
+        DB::begin();
+
         if(isset($this->uuidPrimaryKey) && $this->uuidPrimaryKey)
         {
             $data = array_merge($data, [$this->primaryKey => Stringable::uuid()]);
@@ -106,6 +122,8 @@ class DB {
         $stmt = $this->_getConn()->prepare($sql);
 
         $stmt->execute($values);
+
+        DB::commit();
 
         return $this->_find($this->_getConn()->insert_id);
     }
@@ -159,19 +177,23 @@ class DB {
 
     public function _update(array $data)
     {
+        DB::begin();
         $this->_where($this->primaryKey, $this->{$this->primaryKey});
         $sql = "UPDATE $this->table " . $this->_updateBuilder($data) . ' ' . $this->_whereBuilder();
         $stmt = $this->_getConn()->prepare($sql);
         $stmt->execute($this->db_binding);
+        DB::commit();
     }
 
     // == DELETE ==
     public function _delete()
     {
+        DB::begin();
         $this->_where($this->primaryKey, $this->{$this->primaryKey});
         $sql = "DELETE FROM $this->table " . $this->_whereBuilder();
         $stmt = $this->_getConn()->prepare($sql);
         $stmt->execute($this->db_binding);
+        DB::commit();
     }
 
     // == GETTER ==

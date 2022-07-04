@@ -39,6 +39,8 @@ class Validation
                 if($this->firstError === null) $this->firstError = $result;
                 $this->errors[] = $result;
             } 
+
+            unset($method);
         }
 
         if(count($this->errors) > 0) return false;

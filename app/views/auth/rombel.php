@@ -22,8 +22,8 @@
                             <td><?= e($rb->name) ?></td>
                             <td><?= e($rb->display_name) ?></td>
                             <td>
-                                <button class="btn btn-warning btn-sm edit">E</button>
-                                <button class="btn btn-danger btn-sm delete">d</button>
+                                <button class="btn btn-warning btn-sm edit"><i class="fa-solid fa-edit"></i></button>
+                                <button class="btn btn-danger btn-sm delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <?php endforeach; else : ?>
@@ -111,7 +111,7 @@
 
     document.querySelectorAll('tr[data-target] .edit').forEach( obj => obj.addEventListener('click', e => {
 
-        const parent = e.target.parentElement.parentElement;
+        const parent = obj.parentElement.parentElement;
 
         const id = parent.getAttribute('data-target')
         const name = parent.querySelectorAll('td')[0].innerHTML
@@ -132,7 +132,8 @@
 
     document.querySelectorAll('tr[data-target] .delete').forEach( obj => obj.addEventListener('click', e => {
 
-        const parent = e.target.parentElement.parentElement;
+        const parent = obj.parentElement.parentElement;
+        console.log(parent)
 
         const id = parent.getAttribute('data-target')
         const name = parent.querySelectorAll('td')[0].innerHTML
