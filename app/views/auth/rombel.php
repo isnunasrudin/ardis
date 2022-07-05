@@ -23,7 +23,7 @@
                             <td><?= e($rb->display_name) ?></td>
                             <td>
                                 <button class="btn btn-warning btn-sm edit"><i class="fa-solid fa-edit"></i></button>
-                                <button class="btn btn-danger btn-sm delete"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-danger btn-sm delete" <?= $rb->siswa->count() > 0 ? 'disabled' : '' ?>><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                         <?php endforeach; else : ?>

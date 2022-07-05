@@ -161,7 +161,7 @@ class DB {
             return $result;
         }
 
-        throw new Exception("Atribut $name tidak ditemukan");
+        return null;
     }
 
     // == UPDATE ==
