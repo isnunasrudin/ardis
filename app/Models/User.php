@@ -16,6 +16,11 @@ class User extends Model {
         return $this->belongsTo(Role::class);
     }
 
+    public function siswa()
+    {
+        return $this->hasOne(SiswaInfo::class);
+    }
+
     public function isRole(...$role) : bool
     {
         return in_array($this->role->name, $role);

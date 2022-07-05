@@ -38,23 +38,22 @@ class LoginController
                 // GTK
                 $user = User::where('email', $request->post('input_1'))->first();
                 if( $user === null ) throw new Exception();
-                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception();
+                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception('a');
             }
             else
             {
                 // Siswa
                 $data_siswa = SiswaInfo::where('nisn', $request->post('input_1'))->first();
-                if( $data_siswa === null ) throw new Exception();
 
                 $user = $data_siswa->akun;
-                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception();
+                if(!Auth::login($user->id, $request->post('input_2'))) throw new Exception('b');
 
             }
 
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => "Data yang dimasukkan tidak valid!"
+                'message' => "Data yang dimasukkan tidak valid!" 
             ]);
         }
         

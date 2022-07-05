@@ -1,8 +1,10 @@
 <div class="container">
+    <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
     <div class="d-flex">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
-        <h5>Edit Siswa</h5>
+        <h5>Lihat Siswa</h5>
     </div>
+    <?php endif; ?>
     <div class="row">
         <div class="col-lg-9">
             <form class="card" method="POST">

@@ -1,8 +1,10 @@
 <div class="container">
+    <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
     <div class="d-flex">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
         <h5>Lihat Siswa</h5>
     </div>
+    <?php endif; ?>
     <div class="row">
         <div class="col-lg-9">
             <form class="card" method="POST">
@@ -88,7 +90,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a class="btn btn-primary" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>">Tambahkan Data</a>
+                    <a class="btn btn-warning" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-edit me-1"></i>Edit Data</a>
                 </div>
             </form>
         </div>

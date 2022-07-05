@@ -47,7 +47,7 @@ class Response
             'params' => $params
         ];
 
-        $this->addHeader('Location', '?' . http_build_query($params));
+        $this->addHeader('Location', '.');
 
         return $this;
     }
