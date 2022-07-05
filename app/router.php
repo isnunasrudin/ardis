@@ -28,6 +28,9 @@ Route::middleware([AuthMiddleware::class], function(){
     Route::get('auth.siswa.edit', "Auth\\SiswaController@edit");
     Route::post('auth.siswa.edit', "Auth\\SiswaController@edit_run");
 
+    Route::get('auth.operator', "Auth\\OperatorController@index");
+    Route::post('auth.operator', "Auth\\OperatorController@action");
+
     Route::get('auth.rombel', "Auth\\RombelController@index");
     Route::post('auth.rombel', "Auth\\RombelController@action");
 

@@ -41,6 +41,12 @@
                 <li class="nav-item">
                     <a class="nav-link <?= url_active('auth.rombel') ? 'active' : '' ?>" data-target="<?= url_make('auth.rombel') ?>">Rombongan Belajar</a>
                 </li>
+                <?php if(auth()::user()->isRole('kepsek')) : ?>
+                <li class="nav-item">
+                    <a class="nav-link <?= url_active('auth.operator') ? 'active' : '' ?>" data-target="<?= url_make('auth.operator') ?>">Operator</a>
+                </li>
+                <?php endif; ?>
+
                 <?php else : ?>
 
                 <?php endif; ?>

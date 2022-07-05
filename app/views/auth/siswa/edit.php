@@ -1,11 +1,11 @@
 <div class="container">
     <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
-    <div class="d-flex">
+    <div class="d-flex justify-content-center mb-4">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
-        <h5>Lihat Siswa</h5>
+        <h5 class="my-auto">Lihat Siswa</h5>
     </div>
     <?php endif; ?>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-9">
             <form class="card" method="POST">
                 <div class="card-header">
@@ -43,7 +43,7 @@
                         <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required value="<?= e($siswa->asal_sekolah) ?>">
                     </div>
                     <div class="row">
-                        <div class="col">
+                        <div class="col-lg-3 col-6">
                             <div class="form-group mb-4">
                                 <label for="provinsi" class="form-label">Provinsi</label>
                                 <select class="form-select" id="provinsi" name="provinsi" required>
@@ -51,21 +51,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-lg-3 col-6">
                             <div class="form-group mb-4">
                                 <label for="kota" class="form-label">Kabupaten</label>
                                 <select class="form-select" id="kota" name="kota" required>
                                 </select>
                             </div>
                         </div>
-                        <div class="col ">
+                        <div class="col-lg-3 col-6 ">
                             <div class="form-group mb-4">
                                 <label for="kecamatan" class="form-label">Kecamatan</label>
                                 <select class="form-select" id="kecamatan" name="kecamatan" required>
                                 </select>
                             </div>
                         </div>
-                        <div class="col ">
+                        <div class="col-lg-3 col-6 ">
                             <div class="form-group mb-4">
                                 <label for="desa" class="form-label">Desa</label>
                                 <select class="form-select" id="desa" name="desa" required>
@@ -74,13 +74,13 @@
                         </div>
                     </div>
                     <div class="row g-1">
-                        <div class="col-1">
+                        <div class="col-2">
                             <div class="form-group mb-4">
                                 <label for="input-rt" class="form-label">Rt.</label>
                                 <input type="number" class="form-control" id="input-rt" name="rt" value="<?= e($siswa->rt) ?>">
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-2">
                             <div class="form-group mb-4">
                                 <label for="input-rw" class="form-label">Rw.</label>
                                 <input type="number" class="form-control" id="input-rw" name="rw" value="<?= e($siswa->rw) ?>">

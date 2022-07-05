@@ -3,7 +3,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Daftar Peserta Didik</h5>
+                    <h5 class="card-title">Daftar Operator</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -11,20 +11,20 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Rombel</th>
-                                    <th scope="col">Keterangan</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if($rombel->count() > 0) : foreach($rombel as $k => $rb) : ?>
-                                <tr data-target="<?= e($rb->id) ?>">
+                                <?php if($operator->count() > 0) : foreach($operator as $k => $op) : ?>
+                                <tr data-target="<?= e($op->id) ?>">
                                     <th scope="row"><?= e(++$k) ?></th>
-                                    <td><?= e($rb->name) ?></td>
-                                    <td><?= e($rb->display_name) ?></td>
+                                    <td><?= e($op->full_name) ?></td>
+                                    <td><?= e($op->email) ?></td>
                                     <td class="d-flex gap-1">
                                         <button class="btn btn-warning btn-sm edit"><i class="fa-solid fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm delete" <?= $rb->siswa->count() > 0 ? 'disabled' : '' ?>><i class="fa-solid fa-trash"></i></button>
+                                        <button class="btn btn-danger btn-sm delete"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 <?php endforeach; else : ?>
@@ -55,16 +55,20 @@
     </div>
 </div>
 <script>
+    let helper = "";
     const formFormat = `
             <form class="text-start">
                 <div class="form-group mb-4">
-                    <label class="form-label">Nama Rombel Ringkas</label>
-                    <input class="form-control" name="name" placeholder="Contoh: TKJ 1" />
+                    <label class="form-label">Nama Lengkap</label>
+                    <input class="form-control" name="name" />
+                </div>
+                <div class="form-group mb-4">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" name="email" />
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Nama Rombel Lengkap</label>
-                    <input class="form-control" name="display_name" placeholder="Contoh: Teknik Komputer & Jaringan 1" />
-                </div>
+                    <label class="form-label">Password</label>
+                    <input class="form-control" name="password" />`+helper+`</div>
             </form>
             `;
 
@@ -91,14 +95,15 @@
         })
     }
 
-    function fillValue(name, display_name)
+    function fillValue(name, email)
     {
         let data = document.querySelector("form")
         data.querySelector('input[name="name"]').value = name
-        data.querySelector('input[name="display_name"]').value = display_name
+        data.querySelector('input[name="email"]').value = email
     }
 
     document.getElementById('tambah').addEventListener('click', e => {
+        helper = ""
         Alert.fire({
             title: 'Tambah Rombel',
             showLoaderOnConfirm: true,
@@ -113,11 +118,15 @@
 
     document.querySelectorAll('tr[data-target] .edit').forEach( obj => obj.addEventListener('click', e => {
 
+        helper = `
+                    <small class="form-text text-muted"><i class="fa-solid fa-circle-info"></i> Kosongi jika tidak ingin mengubah sandi</small>
+                `;
+
         const parent = obj.parentElement.parentElement;
 
         const id = parent.getAttribute('data-target')
         const name = parent.querySelectorAll('td')[0].innerHTML
-        const display_name = parent.querySelectorAll('td')[1].innerHTML
+        const email = parent.querySelectorAll('td')[1].innerHTML
 
         Alert.fire({
             title: 'Edit Rombel',
@@ -126,7 +135,7 @@
                 e.preventDefault()
             }),
             html: formFormat,
-            didOpen: () => fillValue(name, display_name),
+            didOpen: () => fillValue(name, email),
             preConfirm: () => preConfirm('edit', id)
         });
         
@@ -135,8 +144,7 @@
     document.querySelectorAll('tr[data-target] .delete').forEach( obj => obj.addEventListener('click', e => {
 
         const parent = obj.parentElement.parentElement;
-        console.log(parent)
-
+        
         const id = parent.getAttribute('data-target')
         const name = parent.querySelectorAll('td')[0].innerHTML
         const display_name = parent.querySelectorAll('td')[1].innerHTML

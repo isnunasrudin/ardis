@@ -3,7 +3,7 @@
 namespace Controllers\Auth;
 
 use Libraries\Authenticable\Auth;
-use Models\SiswaBerkas;
+use Models\Rombel;
 use Models\SiswaInfo;
 
 class HomeController
@@ -14,7 +14,7 @@ class HomeController
         
         $data = [
             'total_siswa' => SiswaInfo::count(),
-            'total_berkas' => SiswaBerkas::count()
+            'total_rombel' => Rombel::count()
         ];
         return view('auth.dashboard', $data, title: 'Beranda');
     }

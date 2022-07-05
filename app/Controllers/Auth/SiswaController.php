@@ -173,7 +173,7 @@ class SiswaController
             
             return response()->json([
                 'status' => true,
-                'link' => url_make('auth.siswa')
+                'link' => auth()::user()->isRole('admin', 'kepsek') ? url_make('auth.siswa') : url_make('auth.siswa.view', ['id', $siswa->akun->id])
             ]);
 
         } catch (\Throwable $th) {
