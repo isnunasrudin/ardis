@@ -85,4 +85,13 @@ class SiswaController
             'link' => url_make('auth.siswa')
         ]);
     }
+
+    public function delete(Request $request)
+    {
+        $siswa_info = SiswaInfo::find($request->post('id'));
+        $user = $siswa_info->akun;
+
+        $siswa_info->delete();
+        $user->delete();
+    }
 }

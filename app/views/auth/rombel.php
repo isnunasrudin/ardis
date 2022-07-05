@@ -21,7 +21,7 @@
                             <th scope="row"><?= e(++$k) ?></th>
                             <td><?= e($rb->name) ?></td>
                             <td><?= e($rb->display_name) ?></td>
-                            <td>
+                            <td class="d-flex gap-1">
                                 <button class="btn btn-warning btn-sm edit"><i class="fa-solid fa-edit"></i></button>
                                 <button class="btn btn-danger btn-sm delete" <?= $rb->siswa->count() > 0 ? 'disabled' : '' ?>><i class="fa-solid fa-trash"></i></button>
                             </td>

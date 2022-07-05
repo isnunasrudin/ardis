@@ -18,6 +18,8 @@ Route::middleware([AuthMiddleware::class], function(){
     Route::get('auth.home', "Auth\\HomeController@index");
 
     Route::get('auth.siswa', "Auth\\SiswaController@index");
+    Route::post('auth.siswa', "Auth\\SiswaController@delete");
+
     Route::get('auth.siswa.tambah', "Auth\\SiswaController@tambah");
     Route::post('auth.siswa.tambah', "Auth\\SiswaController@tambah_post");
 

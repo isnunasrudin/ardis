@@ -27,8 +27,8 @@
                             <td><?= e($siswa->kelas ?? '') . ' ' . e($siswa->rombel->name) ?></td>
                             <td>-</td>
                             <td><?= e($siswa->created_at) ?></td>
-                            <td>
-                                <button class="btn btn-sm btn-success edit"><i class="fa-solid fa-eye"></i></button>
+                            <td class="d-flex gap-1">
+                                <a class="btn btn-sm btn-success" data-target="a"><i class="fa-solid fa-eye"></i></a>
                                 <button class="btn btn-sm btn-warning edit"><i class="fa-solid fa-edit"></i></button>
                                 <button class="btn btn-sm btn-danger delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
@@ -62,3 +62,53 @@
         </div>
     </div>
 </div>
+<script>
+    
+
+    function preConfirm(action, id = null, data = null)
+    {
+        if(data === null)
+        {
+            
+            data = document.querySelector("form")
+            data = new FormData(data)
+            data.append('action', action)
+            if(data.id !== null) data.append('id', id)
+        }
+        
+        return fetch(".", {
+            method: 'POST',
+            body: data
+        }).then(e => e.json()).then(e => {
+            if(e.status == false) Alert.showValidationMessage(e.message);
+            else location.href = '.';
+        }).catch(() => {
+            Alert.fire('Oh Tidak!', 'Terjadi kesalahan pada server!', 'error')
+                .then(() => location.href = '.')
+        })
+    }
+
+    document.querySelectorAll('tr[data-target] .delete').forEach( obj => obj.addEventListener('click', e => {
+
+        const parent = obj.parentElement.parentElement;
+        console.log(parent)
+
+        const id = parent.getAttribute('data-target')
+        const name = parent.querySelectorAll('td')[0].innerHTML
+        const display_name = parent.querySelectorAll('td')[1].innerHTML
+
+        const data = new FormData();
+        data.append('id', id)
+        data.append('action', 'delete')
+
+        Alert.fire({
+            title: 'Yakin Hapus?',
+            text: 'Anda yakin ingin menghapus ' + name + ' ?',
+            icon: 'question',
+            showCancelButton: true,
+            showLoaderOnConfirm: true,
+            preConfirm: () => preConfirm('delete', null, data)
+        });
+
+    }))
+</script>

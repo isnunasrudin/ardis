@@ -82,15 +82,33 @@ class DB {
 
     private function _whereBuilder() : string
     {
-        return count($this->db_where) > 0 ? "WHERE " . implode(" AND ", array_map(function($key, $val){
-            $this->db_binding[] = $val;
-            return "$key = ?";
-        }, array_keys($this->db_where), array_values($this->db_where))) : '';
+        $soft_delete = (isset($this->soft_delete) && $this->soft_delete === TRUE) ? TRUE : FALSE;
+
+        $sql = "WHERE ";
+        if($soft_delete){
+            $sql .= 'deleted_at IS NULL ';
+        }
+
+        if(count($this->db_where) > 0)
+        {
+            $sql .= ($soft_delete ? 'AND ' : '') . implode(" AND ", array_map(function($key, $val){
+                $this->db_binding[] = $val;
+                return "$key = ?";
+            }, array_keys($this->db_where), array_values($this->db_where)));
+        }else
+        {
+            if(!(isset($this->soft_delete) && $this->soft_delete === TRUE))
+            {
+                $sql .= '1';
+            }
+        }
+
+        return $sql;
     }
 
     private function _selectBuilder() : string
     {
-        return implode("*", $this->db_select);
+        return implode(",", $this->db_select);
     }
 
     public function _insert(array $data)
@@ -190,9 +208,21 @@ class DB {
     {
         DB::begin();
         $this->_where($this->primaryKey, $this->{$this->primaryKey});
-        $sql = "DELETE FROM $this->table " . $this->_whereBuilder();
-        $stmt = $this->_getConn()->prepare($sql);
-        $stmt->execute($this->db_binding);
+        if(isset($this->soft_delete) && $this->soft_delete === TRUE)
+        {
+            // $sql = "DELETE FROM $this->table " . $this->_whereBuilder();
+            // $stmt = $this->_getConn()->prepare($sql);
+            // $stmt->execute($this->db_binding);
+            $this->_update([
+                'deleted_at' => date("Y-m-d H:i:s")
+            ]);
+        }
+        else
+        {
+            $sql = "DELETE FROM $this->table " . $this->_whereBuilder();
+            $stmt = $this->_getConn()->prepare($sql);
+            $stmt->execute($this->db_binding);
+        }
         DB::commit();
     }
 
@@ -209,7 +239,9 @@ class DB {
 
     public function _first()
     {
-        $stmt = $this->_getConn()->prepare("SELECT " . $this->_selectBuilder() . " FROM $this->table " . $this->_whereBuilder() . " LIMIT 1");
+        $sql = "SELECT " . $this->_selectBuilder() . " FROM $this->table " . $this->_whereBuilder() . " LIMIT 1";
+
+        $stmt = $this->_getConn()->prepare($sql);
         $stmt->execute($this->db_binding);
 
         $result = $stmt->get_result()->fetch_object(get_called_class());
@@ -219,7 +251,8 @@ class DB {
 
     public function _count()
     {
-        $stmt = $this->_getConn()->prepare("SELECT COUNT(*) AS db_count FROM $this->table " . $this->_whereBuilder());
+        $sql = ("SELECT COUNT(*) AS db_count FROM $this->table " . $this->_whereBuilder());
+        $stmt = $this->_getConn()->prepare($sql);
         $stmt->execute($this->db_binding);
         return $stmt->get_result()->fetch_array()['db_count'];
     }

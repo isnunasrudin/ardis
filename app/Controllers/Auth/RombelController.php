@@ -4,6 +4,7 @@ namespace Controllers\Auth;
 
 use Libraries\Request;
 use Models\Rombel;
+use Models\SiswaInfo;
 use Models\User;
 
 class RombelController
