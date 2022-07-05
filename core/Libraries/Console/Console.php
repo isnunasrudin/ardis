@@ -34,7 +34,7 @@ class Console extends Styling
             $this->println("===================================");
             $this->println("======= ARDIS BY KELOMPOK 1 =======");
             $this->println("===================================");
-            $this->println("Developer : Isnu, Zhen, Elly, Nurul");
+            $this->println("Dev: Isnu, Zhen, Elly, Nurul, Bagus");
             $this->println("===================================");
             $this->br();
             call_user_func_array([$this, $method], $params);
