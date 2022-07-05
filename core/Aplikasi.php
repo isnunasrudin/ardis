@@ -23,7 +23,7 @@ class Aplikasi extends Route {
         $this->validate();
 
         //Request
-        $request = new Request($_POST, $_GET, $_FILES);
+        $request = new Request($_POST, array_merge($_GET, $_SESSION['url']['current']['params']), $_FILES);
 
         //Check is isset the routes
         $current_url = URL::current_url();
@@ -61,12 +61,7 @@ class Aplikasi extends Route {
         }
         else
         {
-            $_SESSION['url']['current'] = $_SESSION['url']['before'] = [
-                'link' => sha1('/'),
-                'params' => array()
-            ];
-            http_response_code(404);
-            die('Halaman Tidak Ditemukan');
+            not_found();
         }
     }
 
@@ -107,11 +102,20 @@ class Aplikasi extends Route {
         {
             if(isset($_COOKIE[$_SESSION['id']]))
             {
+                $data = explode(URL::GLUE, $_COOKIE[$_SESSION['id']]);
+                $params = array();
+
+                try {
+                    $params = (array) unserialize(base64_decode($data[1]));
+                } catch (\Throwable $th) {
+
+                }
+
                 $_SESSION['url']['before'] = $_SESSION['url']['current'];
 
                 $_SESSION['url']['current'] = [
-                    'link' => $_COOKIE[$_SESSION['id']],
-                    'params' => $_GET
+                    'link' => $data[0],
+                    'params' =>$params
                 ];
 
                 setcookie($_SESSION['id'], "", 1);

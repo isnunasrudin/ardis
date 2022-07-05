@@ -4,6 +4,7 @@ namespace Libraries;
 
 class URL
 {
+    public const GLUE = "78yh2u3r8734yh2";
     public static function current_url()
     {
         return $_SESSION['url']['current']['link'];
@@ -19,9 +20,9 @@ class URL
         return self::base_url() . 'assets/' . $name;
     }
 
-    public static function make($url_name)
+    public static function make($url_name, $params = array())
     {
-        return $_SESSION['id'] . "=" . sha1($url_name);
+        return $_SESSION['id'] . "=" . sha1($url_name) . self::GLUE . base64_encode(serialize($params));
     }
     
 }

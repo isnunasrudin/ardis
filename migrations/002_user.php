@@ -12,7 +12,7 @@ return new class extends Migration implements MigrationInterface {
     {
         $this->string('id', 64)->primary();
         $this->string('full_name');
-        $this->string('email')->unique();
+        $this->string('email');
         $this->integer('role_id')->foreign('role');
         $this->string('avatar')->nullable();
         $this->string('token')->nullable();

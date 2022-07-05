@@ -28,8 +28,8 @@
                             <td>-</td>
                             <td><?= e($siswa->created_at) ?></td>
                             <td class="d-flex gap-1">
-                                <a class="btn btn-sm btn-success" data-target="a"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm btn-warning edit"><i class="fa-solid fa-edit"></i></button>
+                                <a class="btn btn-sm btn-success" data-target="<?= e(url_make('auth.siswa.view', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-eye"></i></a>
+                                <a class="btn btn-sm btn-warning" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-edit"></i></a>
                                 <button class="btn btn-sm btn-danger delete"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>

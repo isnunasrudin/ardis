@@ -23,4 +23,24 @@ class SiswaInfo extends Model
     {
         return $this->belongsTo(Rombel::class);
     }
+
+    public function desa()
+    {
+        return $this->address_code;
+    }
+
+    public function kecamatan()
+    {
+        return substr($this->address_code, 0, 7);
+    }
+
+    public function kota()
+    {
+        return substr($this->address_code, 0, 4);
+    }
+
+    public function provinsi()
+    {
+        return substr($this->address_code, 0, 2);
+    }
 }

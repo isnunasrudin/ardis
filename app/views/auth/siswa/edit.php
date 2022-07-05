@@ -1,44 +1,44 @@
 <div class="container">
     <div class="d-flex">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
-        <h5>Tambah Siswa</h5>
+        <h5>Edit Siswa</h5>
     </div>
     <div class="row">
         <div class="col-lg-9">
             <form class="card" method="POST">
                 <div class="card-header">
-                    <h5 class="card-title">Daftar Peserta Didik</h5>
+                    <h5 class="card-title">Data Peserta Didik</h5>
                 </div>
                 <div class="card-body">
                     <div class="form-group mb-4">
                         <label for="input-nama" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="input-nama" name="nama" required>
+                        <input type="text" class="form-control" id="input-nama" name="nama" required value="<?= e($siswa->akun->full_name) ?>">
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-nisn" class="form-label">Nomor Induk Siswa Nasional</label>
-                        <input type="text" class="form-control" id="input-nisn" name="nisn" required>
+                        <input type="text" class="form-control" id="input-nisn" name="nisn" required value="<?= e($siswa->nisn) ?>">
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group mb-4">
                                 <label for="input-tempat-lahir" class="form-label">Tempat Lahir</label>
-                                <input type="text" class="form-control" id="input-tempat-lahir" name="tempat-lahir" required>
+                                <input type="text" class="form-control" id="input-tempat-lahir" name="tempat-lahir" required value="<?= e($siswa->born_place) ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
                                 <label for="input-tgl-lahir" class="form-label">Tanggal Lahir</label>
-                                <input type="date" class="form-control" id="input-tgl-lahir" name="tgl-lahir" required>
+                                <input type="date" class="form-control" id="input-tgl-lahir" name="tgl-lahir" required value="<?= e($siswa->born_date) ?>">
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="input-email" name="email" required>
+                        <input type="email" class="form-control" id="input-email" name="email" required value="<?= e($siswa->akun->email) ?>">
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-asal-sekolah" class="form-label">Asal Sekolah</label>
-                        <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required>
+                        <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required value="<?= e($siswa->asal_sekolah) ?>">
                     </div>
                     <div class="row">
                         <div class="col">
@@ -75,19 +75,19 @@
                         <div class="col-1">
                             <div class="form-group mb-4">
                                 <label for="input-rt" class="form-label">Rt.</label>
-                                <input type="number" class="form-control" id="input-rt" name="rt">
+                                <input type="number" class="form-control" id="input-rt" name="rt" value="<?= e($siswa->rt) ?>">
                             </div>
                         </div>
                         <div class="col-1">
                             <div class="form-group mb-4">
                                 <label for="input-rw" class="form-label">Rw.</label>
-                                <input type="number" class="form-control" id="input-rw" name="rw">
+                                <input type="number" class="form-control" id="input-rw" name="rw" value="<?= e($siswa->rw) ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
                                 <label for="input-alamat" class="form-label">Alamat Lengkap</label>
-                                <input type="text" class="form-control" id="input-alamat" name="alamat">
+                                <input type="text" class="form-control" id="input-alamat" name="alamat" value="<?= e($siswa->address_street) ?>">
                             </div>
                         </div>
                     </div>
@@ -95,16 +95,16 @@
                         <div class="col">
                             <div class="form-group mb-4">
                                 <label for="input-tahun-masuk" class="form-label">Tahun Masuk</label>
-                                <input type="number" class="form-control" id="input-tahun-masuk" name="tahun-masuk" required>
+                                <input type="number" class="form-control" id="input-tahun-masuk" name="tahun-masuk" required value="<?= e($siswa->tahun_masuk) ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
                                 <label for="input-kelas" class="form-label">Kelas</label>
                                 <select class="form-select" id="input-kelas" name="kelas" required>
-                                    <option value="10">X (Sepuluh)</option>
-                                    <option value="11">XI (Sebelas)</option>
-                                    <option value="12">XII (Duabelas)</option>
+                                    <option value="10" <?= $siswa->kelas == "10" ? 'selected' : '' ?>>X (Sepuluh)</option>
+                                    <option value="10" <?= $siswa->kelas == "11" ? 'selected' : '' ?>>XI (Sebelas)</option>
+                                    <option value="10" <?= $siswa->kelas == "12" ? 'selected' : '' ?>>XII (Dua Belas)</option>
                                 </select>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                                 <label for="input-rombel" class="form-label">Rombongan Belajar</label>
                                 <select class="form-select" id="input-rombel" name="rombel" required>
                                     <?php foreach($rombel as $r) : ?>
-                                    <option value="<?= e($r->id) ?>"><?= e($r->name) ?></option>
+                                    <option value="<?= e($r->id) ?>" <?= $r->id === $siswa->rombel_id ? 'selected' : '' ?>><?= e($r->name) ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -121,9 +121,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    
-
-                <button class="btn btn-primary" type="submit">Tambahkan Data</button>
+                    <button class="btn btn-primary" type="submit">Simpan Data</button>
                 </div>
             </form>
         </div>
@@ -135,17 +133,7 @@
     const kecamatan = document.getElementById('kecamatan')
     const desa = document.getElementById('desa')
 
-    fetch('https://dev.farizdotid.com/api/daerahindonesia/provinsi').then(e => e.json())
-        .then(e => {
-            provinsi.querySelector('option').remove()
-            e.provinsi.forEach( prov => {
-                const node = document.createElement("option");
-                const textNode = document.createTextNode(prov.nama);
-                node.appendChild(textNode)
-                node.value = prov.id
-                provinsi.appendChild(node)
-            })
-        })
+    let init = true;
     
     provinsi.addEventListener('change', e => {
         
@@ -168,6 +156,11 @@
                 node.value = kab.id
                 kota.appendChild(node)
             })
+        }).then(() => {
+            if(init) {
+                kota.value = "<?= $siswa->kota ?>"
+                kota.dispatchEvent(new Event('change'))
+            }
         })
     })
 
@@ -191,6 +184,11 @@
                 node.value = kec.id
                 kecamatan.appendChild(node)
             })
+        }).then(() => {
+            if(init) {
+                kecamatan.value = "<?= $siswa->kecamatan ?>"
+                kecamatan.dispatchEvent(new Event('change'))
+            }
         })
     })
 
@@ -212,6 +210,12 @@
                 node.value = kel.id
                 desa.appendChild(node)
             })
+        }).then(() => {
+            if(init) {
+                init = false
+                desa.value = "<?= $siswa->desa ?>"
+                desa.dispatchEvent(new Event('change'))
+            }
         })
     })
 
@@ -240,4 +244,22 @@
             Alert.fire('Kesalahan Sistem!', 'Gagal mengambil data dari server.', 'error').then(() => location.href = '.');
         })
     })
-</script>
+
+    
+
+    fetch('https://dev.farizdotid.com/api/daerahindonesia/provinsi').then(e => e.json())
+        .then(e => {
+            provinsi.querySelector('option').remove()
+            e.provinsi.forEach( prov => {
+                const node = document.createElement("option");
+                const textNode = document.createTextNode(prov.nama);
+                node.appendChild(textNode)
+                node.value = prov.id
+                provinsi.appendChild(node)
+            })
+        }).then(() => {
+            provinsi.value = "<?= $siswa->provinsi ?>"
+            provinsi.dispatchEvent(new Event('change'))
+        })
+
+</script>   

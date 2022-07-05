@@ -2,6 +2,7 @@
 
 namespace Controllers\Auth;
 
+use Exception;
 use Libraries\Database\DB;
 use Libraries\Request;
 use Models\Rombel;
@@ -42,7 +43,7 @@ class SiswaController
             'rt' => ['numeric'],
             'rw' => ['numeric'],
             'tahun-masuk' => ['required', 'digits:4'],
-            'kelas' => ['required', 'in:1,2,3'],
+            'kelas' => ['required', 'in:10,11,12'],
             'rombel' => ['required', 'exists:rombel,id'],
         ]);
 
@@ -93,5 +94,93 @@ class SiswaController
 
         $siswa_info->delete();
         $user->delete();
+
+        return response()->json([
+            'status' => true,
+        ]);
+    }
+
+    public function view(Request $request)
+    {
+        $validate = $request->validate([
+            'id' => ['required', 'exists:siswa_info,id']
+        ]);
+
+        if(!$validate->run()) not_found();
+
+        $data = [
+            'siswa' => SiswaInfo::find($request->any('id')),
+            'rombel' => Rombel::get()
+        ];
+
+        return view('auth.siswa.view', $data);
+    }
+
+    public function edit(Request $request)
+    {
+        $siswa = SiswaInfo::find($request->any('id'));
+        $rombel = Rombel::get();
+        return view('auth.siswa.edit', compact('siswa', 'rombel'), title: 'Edit Data Siswa');
+    }
+
+    public function edit_run(Request $request)
+    {
+        $validate = $request->validate([
+            'nama' => ['required'],
+            'nisn' => ['required', 'digits:10'],
+            'tempat-lahir' => ['required'],
+            'tgl-lahir' => ['required', 'date'],
+            'email' => ['required', 'email'],
+            'provinsi' => ['required', 'digits:2'],
+            'kota' => ['required', 'digits:4'],
+            'kecamatan' => ['required', 'digits:7'],
+            'desa' => ['required', 'digits:10'],
+            'rt' => ['numeric'],
+            'rw' => ['numeric'],
+            'tahun-masuk' => ['required', 'digits:4'],
+            'kelas' => ['required', 'in:10,11,12'],
+            'rombel' => ['required', 'exists:rombel,id'],
+        ]);
+
+        try {
+            if($validate->run() === FALSE) throw new Exception($validate->getMessage());
+
+            $siswa = SiswaInfo::find($request->any('id'));
+
+            DB::transaction(function() use($request, $siswa) {
+                $siswa->update([
+                    'nisn' => $request->post('nisn'),
+                    'born_place' => $request->post('tempat-lahir'),
+                    'born_date' => $request->post('tgl-lahir'),
+                    'gender' => 'L',
+                    'tahun_masuk' => $request->post('tahun-masuk'),
+                    'rt' => $request->post('rt'),
+                    'rw' => $request->post('rw'),
+                    'address_street' => $request->post('alamat'),
+                    'address_code' => $request->post('desa'),
+                    'status' => 1,
+                    'asal_sekolah' => $request->post('asal-sekolah'),
+                    'kelas' => $request->post('kelas'),
+                    'rombel_id' => $request->post('rombel')
+                ]);
+                
+                $siswa->akun->update([
+                    'full_name' => $request->post('nama'),
+                    'password' => bcrypt($request->post('tgl-lahir')),
+                    'email' => $request->post('email'),
+                ]);
+            });
+            
+            return response()->json([
+                'status' => true,
+                'link' => url_make('auth.siswa')
+            ]);
+
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
     }
 }

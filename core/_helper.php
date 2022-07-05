@@ -42,9 +42,9 @@ if(!function_exists('session'))
 
 if(!function_exists('url_make'))
 {
-    function url_make($link)
+    function url_make($link, $params = array())
     {
-        return URL::make($link);
+        return URL::make($link, $params);
     }
 }
 
@@ -133,5 +133,18 @@ if(!function_exists('dd'))
     {
         dump(...$vars);
         exit;
+    }
+}
+
+if(!function_exists('not_found'))
+{
+    function not_found()
+    {
+        $_SESSION['url']['current'] = $_SESSION['url']['before'] = [
+            'link' => sha1('/'),
+            'params' => array()
+        ];
+        http_response_code(404);
+        die('Halaman Tidak Ditemukan');
     }
 }
