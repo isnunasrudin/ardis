@@ -1,8 +1,8 @@
 <div class="row g-1 justify-content-center">
     <div class="col-xl-2 col-md-6">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="bg-danger">
-                <img src="<?= e(asset("author/isnunas.webp")) ?>" class="card-img-top" alt="" style="margin-top: -40px">
+                <img src="<?= e(asset("author/isnunas.webp")) ?>" class="card-img-top" alt="" style="margin-top: -48px">
             </div>
             <div class="card-body">
                 <h5 class="mb-0 card-title text-center">M. <b>Isnu</b> Nasrudin</h5>
@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-6">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="bg-info">
-                <img src="<?= e(asset("author/zhendi.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
+                <img src="<?= e(asset("author/zhendi.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -48px">
             </div>
             <div class="card-body">
                 <h5 class="mb-0 card-title text-center">Miftakhul <b>Zhendi</b></h5>
@@ -48,9 +48,9 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-6">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="bg-success">
-                <img src="<?= e(asset("author/r_nurul.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
+                <img src="<?= e(asset("author/r_nurul.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -48px">
             </div>
             <div class="card-body">
                 <h5 class="mb-0 card-title text-center">Rahmani <b>Nurul</b> F.</h5>
@@ -72,9 +72,9 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-6">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="bg-warning">
-                <img src="<?= e(asset("author/ellyfiana.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
+                <img src="<?= e(asset("author/ellyfiana.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -48px">
             </div>
             <div class="card-body">
                 <h5 class="mb-0 card-title text-center"><b>Elly</b>fiana NS</h5>
@@ -96,9 +96,9 @@
         </div>
     </div>
     <div class="col-xl-2 col-md-6">
-        <div class="card mt-4">
+        <div class="card mt-5">
             <div class="bg-primary">
-                <img src="<?= e(asset("author/bagus.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -40px">
+                <img src="<?= e(asset("author/bagus.webp")) ?>" class="card-img-top" alt="..." style="margin-top: -48px">
             </div>
             <div class="card-body">
                 <h5 class="mb-0 card-title text-center"><b>Bagus</b> Yulianto</h5>
