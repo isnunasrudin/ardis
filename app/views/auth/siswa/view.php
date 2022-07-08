@@ -1,11 +1,11 @@
 <div class="container">
     <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
-    <div class="d-flex">
+    <div class="d-flex justify-content-center mb-3">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
-        <h5>Lihat Siswa</h5>
+        <h5 class="ms-2 my-auto">Informasi Siswa</h5>
     </div>
     <?php endif; ?>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-lg-9">
             <form class="card" method="POST">
                 <div class="card-header">
@@ -42,6 +42,10 @@
                         <label for="input-asal-sekolah" class="form-label">Asal Sekolah</label>
                         <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" disabled value="<?= e($siswa->asal_sekolah) ?>">
                     </div>
+                    <div class="form-group mb-4">
+                        <label for="desa" class="form-label">Kode Alamat</label>
+                        <input type="text" class="form-control" id="input-alamat" name="alamat" value="<?= e($siswa->address_code) ?>" disabled>
+                    </div>  
                     <div class="row g-1">
                         <div class="col-2">
                             <div class="form-group mb-4">
@@ -61,12 +65,6 @@
                                 <input type="text" class="form-control" id="input-alamat" name="alamat" value="<?= e($siswa->address_street) ?>" disabled>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-group mb-4">
-                                <label for="desa" class="form-label">Kode Alamat</label>
-                                <input type="text" class="form-control" id="input-alamat" name="alamat" value="<?= e($siswa->address_code) ?>" disabled>
-                            </div>
-                        </div>
                     </div>
                     <div class="row g-1">
                         <div class="col">
@@ -83,14 +81,14 @@
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="input-rombel" class="form-label">Rombongan Belajar</label>
+                                <label for="input-rombel" class="form-label">Rombel</label>
                                 <input type="text" class="form-control" id="input-rombel" name="rombel" value="<?= e($siswa->rombel->name) ?>" disabled>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a class="btn btn-warning" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-edit me-1"></i>Edit Data</a>
+                <div class="card-footer d-flex">
+                    <a class="btn btn-warning ms-auto" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-edit me-1"></i>Edit Data</a>
                 </div>
             </form>
         </div>

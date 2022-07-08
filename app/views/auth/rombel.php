@@ -116,8 +116,8 @@
         const parent = obj.parentElement.parentElement;
 
         const id = parent.getAttribute('data-target')
-        const name = parent.querySelectorAll('td')[0].innerHTML
-        const display_name = parent.querySelectorAll('td')[1].innerHTML
+        const name = parent.querySelectorAll('td')[0].textContent
+        const display_name = parent.querySelectorAll('td')[1].textContent
 
         Alert.fire({
             title: 'Edit Rombel',

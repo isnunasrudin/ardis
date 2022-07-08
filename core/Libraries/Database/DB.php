@@ -143,7 +143,7 @@ class DB {
 
         DB::commit();
 
-        return $this->_find($this->_getConn()->insert_id);
+        return $this->find($data[$this->primaryKey] ?? $this->_getConn()->insert_id);
     }
 
     public function _find($id)

@@ -14,7 +14,8 @@ class SiswaController
     public function index()
     {
         $data = [
-            'peserta_didik' => SiswaInfo::get()
+            'peserta_didik' => SiswaInfo::get(),
+            'add_enable' => Rombel::count() > 0
         ];
 
         return view('auth.siswa.index', $data, title: 'Peserta Didik');
@@ -31,11 +32,11 @@ class SiswaController
     public function tambah_post(Request $request)
     {
         $validate = $request->validate([
-            'nama' => ['required'],
-            'nisn' => ['required', 'digits:10', 'unique:siswa_info,nisn'],
+            'nama' => ['required', 'name'],
+            'nisn' => ['required', 'digits:10', 'unique:siswa_info,nisn,true'],
             'tempat-lahir' => ['required'],
             'tgl-lahir' => ['required', 'date'],
-            'email' => ['required', 'email', 'unique:user,email'],
+            'email' => ['email', 'unique:user,email,true'],
             'provinsi' => ['required', 'digits:2'],
             'kota' => ['required', 'digits:4'],
             'kecamatan' => ['required', 'digits:7'],
@@ -54,14 +55,12 @@ class SiswaController
         ]);
 
         DB::transaction(function() use($request) {
-            User::insert([
+            $user = User::insert([
                 'full_name' => $request->post('nama'),
                 'password' => bcrypt($request->post('tgl-lahir')),
-                'email' => $request->post('email'),
+                'email' => $request->post('email') ?? '',
                 'role_id' => 1
             ]);
-
-            $user = User::where('email', $request->post('email'))->first();
 
             SiswaInfo::insert([
                 'user_id' => $user->id,
@@ -126,11 +125,11 @@ class SiswaController
     public function edit_run(Request $request)
     {
         $validate = $request->validate([
-            'nama' => ['required'],
+            'nama' => ['required', 'name'],
             'nisn' => ['required', 'digits:10'],
             'tempat-lahir' => ['required'],
             'tgl-lahir' => ['required', 'date'],
-            'email' => ['required', 'email'],
+            'email' => ['email'],
             'provinsi' => ['required', 'digits:2'],
             'kota' => ['required', 'digits:4'],
             'kecamatan' => ['required', 'digits:7'],
@@ -167,7 +166,7 @@ class SiswaController
                 $siswa->akun->update([
                     'full_name' => $request->post('nama'),
                     'password' => bcrypt($request->post('tgl-lahir')),
-                    'email' => $request->post('email'),
+                    'email' => $request->post('email') ?? '',
                 ]);
             });
             

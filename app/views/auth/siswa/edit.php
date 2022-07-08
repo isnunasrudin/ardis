@@ -1,8 +1,8 @@
 <div class="container">
     <?php if(auth()::user()->isRole('admin', 'kepsek')) : ?>
-    <div class="d-flex justify-content-center mb-4">
+    <div class="d-flex justify-content-center mb-3">
         <button class="btn btn-secondary" data-target="<?= e(url_make('auth.siswa')) ?>">Kembali</button>
-        <h5 class="my-auto">Lihat Siswa</h5>
+        <h5 class="ms-2 my-auto">Edit Siswa</h5>
     </div>
     <?php endif; ?>
     <div class="row justify-content-center">
@@ -36,13 +36,13 @@
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="input-email" name="email" required value="<?= e($siswa->akun->email) ?>">
+                        <input type="email" class="form-control" id="input-email" name="email" value="<?= e($siswa->akun->email) ?>">
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-asal-sekolah" class="form-label">Asal Sekolah</label>
                         <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required value="<?= e($siswa->asal_sekolah) ?>">
                     </div>
-                    <div class="row">
+                    <div class="row g-1">
                         <div class="col-lg-3 col-6">
                             <div class="form-group mb-4">
                                 <label for="provinsi" class="form-label">Provinsi</label>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="input-alamat" class="form-label">Alamat Lengkap</label>
+                                <label for="input-alamat" class="form-label">Alamat Tambahan</label>
                                 <input type="text" class="form-control" id="input-alamat" name="alamat" value="<?= e($siswa->address_street) ?>">
                             </div>
                         </div>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="input-rombel" class="form-label">Rombongan Belajar</label>
+                                <label for="input-rombel" class="form-label">Rombel</label>
                                 <select class="form-select" id="input-rombel" name="rombel" required>
                                     <?php foreach($rombel as $r) : ?>
                                     <option value="<?= e($r->id) ?>" <?= $r->id === $siswa->rombel_id ? 'selected' : '' ?>><?= e($r->name) ?></option>
@@ -122,8 +122,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary" type="submit">Simpan Data</button>
+                <div class="card-footer d-flex">
+                    <button class="btn btn-primary ms-auto" type="submit"><i class="fa-solid fa-save me-1"></i> Simpan Perubahan</button>
                 </div>
             </form>
         </div>

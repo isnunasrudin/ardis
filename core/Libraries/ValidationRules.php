@@ -13,11 +13,13 @@ trait ValidationRules
         return TRUE;
     }
 
-    public function rule_unique($input, $value, $table, $kolom = 'id', $except_id = null)
+    public function rule_unique($input, $value, $table, $kolom = 'id', $soft_delete = "false", $except_id = null)
     {
+        if($value == '') return TRUE;
+        
         $sql = DB::table($table)->where($kolom, $value);
 
-        // if(is_null($except_id)) $sql = $sql->where($kolom, $except_id);
+        if($soft_delete === "true") $sql->soft_delete = TRUE;
 
         if($sql->count() <= 0) return TRUE;
 
@@ -26,6 +28,8 @@ trait ValidationRules
 
     public function rule_in($input, $value, ...$cocok)
     {
+        if($value == '') return TRUE;
+        
         if(in_array($value, $cocok)) return TRUE;
 
         return "Data $input tidak valid";
@@ -33,20 +37,26 @@ trait ValidationRules
 
     public function rule_digits($input, $value, $length)
     {
+        if($value == '') return TRUE;
+        
         if(preg_match("/^[0-9]{{$length}}$/", $value)) return TRUE;
 
         return "Panjang $input harus $length angka";
     }
 
-    public function rule_exists($input, $value, $table, $kolom = 'id', $except_id = null)
+    public function rule_exists($input, $value, $table, $kolom = 'id', $soft_delete = "false", $except_id = null)
     {
-        if($this->rule_unique($input, $value, $table, $kolom, $except_id) === TRUE) return "Data $input tidak tersedia";
+        if($value == '') return TRUE;
+        
+        if($this->rule_unique($input, $value, $table, $kolom, $soft_delete, $except_id) === TRUE) return "Data $input tidak tersedia";
 
         return TRUE;
     }
 
     public function rule_date($input, $value)
     {
+        if($value == '') return TRUE;
+        
         if((bool)strtotime($value)) return TRUE;
 
         return "Kolom $input harus diisi tanggal yang valid";
@@ -54,6 +64,7 @@ trait ValidationRules
 
     public function rule_email($input, $value)
     {
+        if($value == '') return TRUE;
         
         if(filter_var($value, FILTER_VALIDATE_EMAIL)) return TRUE;
 
@@ -62,9 +73,20 @@ trait ValidationRules
 
     public function rule_numeric($input, $value, $length)
     {
+        if($value == '') return TRUE;
+        
         if(preg_match("/^[0-9]*$/", $value)) return TRUE;
 
         return "Kolom $input harus diisi angka";
+    }
+
+    public function rule_name($input, $value)
+    {
+        if($value == '') return TRUE;
+        
+        if(preg_match("/^[a-z ,.'-]+$/i", $value)) return TRUE;
+
+        return "Kolom $input harus berisi nama yang valid";
     }
 
 }

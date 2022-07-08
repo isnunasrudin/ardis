@@ -34,13 +34,13 @@
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="input-email" name="email" required>
+                        <input type="email" class="form-control" id="input-email" name="email">
                     </div>
                     <div class="form-group mb-4">
                         <label for="input-asal-sekolah" class="form-label">Asal Sekolah</label>
                         <input type="text" class="form-control" id="input-asal-sekolah" name="asal-sekolah" required>
                     </div>
-                    <div class="row">
+                    <div class="row g-1">
                         <div class="col-6 col-lg-3">
                             <div class="form-group mb-4">
                                 <label for="provinsi" class="form-label">Provinsi</label>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="col">
                             <div class="form-group mb-4">
-                                <label for="input-alamat" class="form-label">Alamat Lengkap</label>
+                                <label for="input-alamat" class="form-label">Alamat Tambahan</label>
                                 <input type="text" class="form-control" id="input-alamat" name="alamat">
                             </div>
                         </div>
@@ -120,10 +120,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    
-
-                <button class="btn btn-primary" type="submit">Tambahkan Data</button>
+                <div class="card-footer d-flex">
+                    <button class="btn btn-primary ms-auto" type="submit"><i class="fa-solid fa-save me-1"></i> Tambahkan Data</button>
                 </div>
             </form>
         </div>

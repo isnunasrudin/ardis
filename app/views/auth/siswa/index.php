@@ -12,10 +12,9 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Nama Lengkap</th>
-                                    <th scope="col">NISN</th>
+                                    <th scope="col" class="d-none d-lg-table-cell">NISN</th>
                                     <th scope="col">Kelas</th>
-                                    <th scope="col">Berkas</th>
-                                    <th scope="col">Ditambahkan Pada</th>
+                                    <th scope="col" class="d-none d-lg-table-cell">Ditambahkan Pada</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
@@ -24,10 +23,9 @@
                                 <tr data-target="<?= e($siswa->id) ?>">
                                     <th scope="row"><?= e(++$k) ?></th>
                                     <td><?= e($siswa->akun->full_name) ?></td>
-                                    <td><?= e($siswa->nisn) ?></td>
+                                    <td class="d-none d-lg-table-cell"><?= e($siswa->nisn) ?></td>
                                     <td><?= e($siswa->kelas ?? '') . ' ' . e($siswa->rombel->name) ?></td>
-                                    <td>-</td>
-                                    <td><?= e($siswa->created_at) ?></td>
+                                    <td class="d-none d-lg-table-cell"><?= e($siswa->created_at) ?></td>
                                     <td class="d-flex gap-1">
                                         <a class="btn btn-sm btn-success" data-target="<?= e(url_make('auth.siswa.view', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-eye"></i></a>
                                         <a class="btn btn-sm btn-warning" data-target="<?= e(url_make('auth.siswa.edit', ['id' => $siswa->id])) ?>"><i class="fa-solid fa-edit"></i></a>
@@ -54,10 +52,17 @@
                 </div>
                 <div class="card-body">
                     <div class="d-grid gap-2">
+                        <?php if($add_enable) : ?>
                         <button class="btn btn-success" data-target="<?= e(url_make('auth.siswa.tambah')) ?>">Tambah</button>
                         <!-- <button class="btn btn-success" data-target="<?= e(url_make('/')) ?>">Tambah Massal</button>
                         <hr />
                         <button class="btn btn-danger" data-target="<?= e(url_make('/')) ?>">Hapus Semua</button> -->
+                        <?php else : ?>
+                        <button class="btn btn-success" disabled="false">Tambah</button>
+                        <p>
+                            <i class="fa-solid fa-circle-info"></i> Untuk menambah data peserta didik, silahkan tambahkan <a class="text-success" data-target="<?= url_make('auth.rombel') ?>">rombel</a> terlebih dahulu
+                        </p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

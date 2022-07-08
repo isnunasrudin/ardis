@@ -86,8 +86,8 @@
         <?= $content ?>
     </div>
         
-    <footer class="d-block text-center">
-        <a data-target="<?= url_make('nurul') ?>" class="fs-6">2022 - Dikembangkan Oleh Kelompok 1</a>
+    <footer class="d-block text-center my-2">
+        <a data-target="<?= url_make('about_us') ?>" class="fs-6">2022 - Dikembangkan Oleh Kelompok 1</a>
     </footer>
 
 </body>

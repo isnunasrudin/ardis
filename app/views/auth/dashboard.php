@@ -4,7 +4,7 @@
         <div class="d-block text-center mb-4 mt-4 mt-sm-0">
                 <h1 class="text-primary fw-bold display-5">Selayang Pandang</h1>
             </div>
-            <div class="row justify-content-center w-100">
+            <div class="row justify-content-center">
                 <div class="col">
                     <div class="row">
                         <div class="col-lg-4">
